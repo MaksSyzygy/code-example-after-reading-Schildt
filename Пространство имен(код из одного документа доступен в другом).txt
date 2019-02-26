@@ -1,0 +1,60 @@
+Код из первого документа
+using System;
+
+namespace Counter
+{
+    class CountDown
+    {
+        int val;
+
+        public CountDown(int n)
+        {
+            val = n;
+        }
+
+        public int Count()
+        {
+            if (val > 0)
+            {
+                return val--;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+}
+
+...теперь доступен в другом
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    class Code
+    {
+        public void Count(int value)
+        {
+            Counter.CountDown cd1 = new Counter.CountDown(value);
+            int i;
+            do
+            {
+                i = cd1.Count();
+                Console.Write(i + " ");
+            } while (i > 0);
+
+            Console.WriteLine();
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Code code = new Code();
+            code.Count(20);
+            code.Count(10);
+        }
+    }
+}

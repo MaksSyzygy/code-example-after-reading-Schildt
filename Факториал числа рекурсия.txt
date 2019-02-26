@@ -1,0 +1,31 @@
+using System;
+
+namespace Учеба
+{
+    class Factorial
+    {
+        public int Fact(int i)
+        {
+            int result;
+
+            if (i == 1)
+            {
+                return 1;
+            }
+            result = Fact(i - 1) * i;
+            return result;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Factorial factorial = new Factorial();
+            for(int i = 1; i < 10; i++)
+            {
+                Console.WriteLine($"Факториал числа {i} равен {factorial.Fact(i)}");
+            }
+        }
+    }
+}

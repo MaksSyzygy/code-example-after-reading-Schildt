@@ -1,0 +1,43 @@
+using System;
+
+namespace Учеба
+{
+    class Control
+    {
+        public enum Action { Start, Stop, Forward, Reverse};
+
+        public void Conveyor(Action com)
+        {
+            switch (com)
+            {
+                case Action.Start:
+                Console.WriteLine("Запустить конвеер");
+                    break;
+
+                case Action.Stop:
+                    Console.WriteLine("Остановить конвеер");
+                    break;
+
+                case Action.Forward:
+                    Console.WriteLine("Конвеер вперед");
+                    break;
+
+                case Action.Reverse:
+                    Console.WriteLine("Конвеер назад");
+                    break;
+            }
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Control control = new Control();
+
+            control.Conveyor(Control.Action.Start);
+            control.Conveyor(Control.Action.Stop);
+            control.Conveyor(Control.Action.Forward);
+            control.Conveyor(Control.Action.Reverse);
+        }
+    }
+}

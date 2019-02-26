@@ -1,0 +1,31 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate int Factorial(int f);
+
+    class Program
+    {
+        static void Main()
+        {
+            Factorial factorial = n =>
+            {
+                int r = 1;
+                for (int i = 1; i <= n; i++)
+                {
+                    r *= i;
+                }
+                return r;
+            };
+
+            Print(3, factorial(3));
+            Print(5, factorial(5));
+        }
+
+        private static void Print(int x, int fact)
+        {
+            Console.WriteLine($"Факториал числа {x} равен {fact}");
+        }
+    }
+}

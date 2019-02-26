@@ -1,0 +1,13 @@
+using System;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            string[] name = { "светлое", "темное", "фруктовое", "крепкое", "безалкогольное" };
+            Console.WriteLine(name[new Random().Next(0, name.Length)]);
+        }
+    }
+}

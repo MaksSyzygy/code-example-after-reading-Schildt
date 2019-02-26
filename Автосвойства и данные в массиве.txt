@@ -1,0 +1,45 @@
+using System;
+
+namespace Учеба
+{
+    class Client
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string City { get; set; }
+
+        public object[] Client_1()
+        {
+            object[] client_1 = new object[] { Name = "Вася", Age = 20, City = "Киев" };
+            Console.WriteLine($"Имя: {client_1[0]}, возраст: {client_1[1]}, город: {client_1[2]}");
+            return client_1;
+        }
+
+        public object[] Client_2()
+        {
+            object[] client_2 = new object[] { Name = "Петя", Age = 40, City = "Днепр" };
+            Console.WriteLine($"Имя: {client_2[0]}, возраст: {client_2[1]}, город: {client_2[2]}");
+            return client_2;
+        }
+
+        public object[] Client_3()
+        {
+            object[] client_3 = new object[] { Name = "Алеша", Age = 30, City = "Одесса" };
+            Console.WriteLine($"Имя: {client_3[0]}, возраст: {client_3[1]}, город: {client_3[2]}");
+            return client_3;
+        }
+    }
+
+
+    class Program
+    {
+        static void Main()
+        {
+            Client client = new Client();
+
+            client.Client_1();
+            client.Client_2();
+            client.Client_3();
+        }
+    }
+}

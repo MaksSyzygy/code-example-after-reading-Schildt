@@ -1,0 +1,31 @@
+using System;
+
+namespace Учеба
+{
+    class Decompse
+    {
+        public int GetParts(double n, out double frak)
+        {
+            int whole;
+
+            whole = (int) n;
+            frak = n - whole;
+            return whole;
+        }
+    }
+
+    class UseOut
+    {
+        static void Main()
+        {
+            Decompse ob = new Decompse();
+            int i;
+            double f;
+
+            i = ob.GetParts(10.125, out f);
+
+            Console.WriteLine($"Целая часть числа {i}");
+            Console.WriteLine($"Дробная часть числа {f}");
+        }
+    }
+}

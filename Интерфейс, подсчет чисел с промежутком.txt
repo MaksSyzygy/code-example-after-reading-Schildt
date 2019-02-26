@@ -1,0 +1,75 @@
+using System;
+
+namespace Учеба
+{
+    public interface ISeries
+    {
+        int GetNext();
+        void Reset();
+        void SetStart(int x);
+        void Print(int value);
+    }
+
+    class ByTwos : ISeries
+    {
+        int start;
+        int val;
+
+        public ByTwos()
+        {
+            start = 0;
+            val = 0;
+        }
+
+        public int GetNext()
+        {
+            val += 2;
+            return val;
+        }
+
+        public void Reset()
+        {
+            val = start;
+        }
+
+        public void SetStart(int x)
+        {
+            start = x;
+            val = start;
+        }
+
+        public void Print(int value)
+        {
+            Console.WriteLine($"Следующее число равно {value}");
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            ByTwos ob = new ByTwos();
+
+            for (int i = 0; i < 5; i++)
+            {
+                ob.Print(ob.GetNext());
+            }
+
+            Console.WriteLine("\nСбросить\n");
+            ob.Reset();
+
+            for (int i = 0; i < 5; i++)
+            {
+                ob.Print(ob.GetNext());
+            }
+
+            Console.WriteLine("\nНачать с числа 100\n");
+            ob.SetStart(100);
+
+            for(int i = 0; i < 5; i++)
+            {
+                ob.Print(ob.GetNext());
+            }
+        }
+    }
+}

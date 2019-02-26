@@ -1,0 +1,49 @@
+using System;
+
+namespace Учеба
+{
+    class UseRect
+    {
+        static void Main()
+        {
+            int[] num = new int[40];
+            bool flag;
+            int sum_simple = 0;
+            int sum_other = 0;
+
+            for (int a = 0; a < num.Length; a++)
+            {
+                num[a] = a;
+            }
+
+            for (int i = 1; i < num.Length; i++)
+            {
+                if (num[i] == 0 || num[i] == 1)
+                {
+                    continue;
+                }
+                flag = true;
+                for (int j = 2; j < num[i]; j++)
+                {
+                    if (num[i] % j == 0)
+                    {
+                        flag = false;
+                    }
+                    
+                }
+                if (flag)
+                {
+                    sum_simple += num[i];
+                    Console.WriteLine(num[i] + " простое число");
+                }
+                else
+                {
+                    sum_other += num[i];
+                    Console.WriteLine(num[i] + " не простое число");
+                }
+            }
+            Console.WriteLine("Сумма простых чисел: " + sum_simple);
+            Console.WriteLine("Сумма не простых чисел: " + sum_other);
+        }
+    }
+}

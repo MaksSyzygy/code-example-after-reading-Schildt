@@ -1,0 +1,50 @@
+using System;
+
+namespace Учеба
+{
+    class UseRect
+    {
+        class Rect
+        {
+            public int Width;
+            public int Height;
+
+            public Rect(int w, int h)
+            {
+                Width = w;
+                Height = h;
+            }
+
+            public int Area()
+            {
+                return Width * Height;
+            }
+        }
+
+        class Name
+        {
+            public string triangle_name;
+            public Name(string name)
+            {
+                triangle_name = name;
+            }
+        }
+
+        static void Main()
+        {
+            string size;
+            Rect r1 = new Rect(5, 9);
+            Rect r2 = new Rect(4, 7);
+            Name n1 = new Name("Первый треугольник больше");
+            Name n2 = new Name("Второй треугольник больше");
+            Name n3 = new Name("первого треугольника");
+            Name n4 = new Name("второго треугольника");
+
+            size = r1.Area() > r2.Area() ? n1.triangle_name : n2.triangle_name;
+
+            Console.WriteLine($"Площадь {n3.triangle_name} равна {r1.Area()}\n");
+            Console.WriteLine($"Площадь {n4.triangle_name} равна {r2.Area()}\n");
+            Console.WriteLine($"{size}");
+        }
+    }
+}

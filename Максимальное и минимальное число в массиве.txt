@@ -1,0 +1,98 @@
+using System;
+
+namespace Учеба
+{
+    class Value
+    {
+        public int MinVal(params int[] nums)
+        {
+            int min;
+
+            if (nums.Length == 0)
+            {
+                Console.WriteLine("Ошибка нет аргументов");
+                return 0;
+            }
+
+            min = nums[0];
+
+            for(int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] < min)
+                {
+                    min = nums[i];
+                }
+            }
+            return min;
+        }
+
+        public int MaxVal(params int[] nums)
+        {
+            int max;
+
+            if (nums.Length == 0)
+            {
+                Console.WriteLine("Ошибка нет аргументов");
+                return 0;
+            }
+
+            max = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] > max)
+                {
+                    max = nums[i];
+                }
+            }
+            return max;
+        }
+    }
+
+    class ParamsDemo
+    {
+        static void Main()
+        {
+            Value ob = new Value();
+            int min;
+            int max;
+            Random random = new Random();
+
+            int[] mas = new int[10];
+
+            Console.Write($"Числа в массиве mas: ");
+            for (int i = 0; i < mas.Length; i++)
+            {
+                mas[i] = i;
+                Console.Write($"{mas[i]} ");
+            }
+
+            int[] arg = new int[10];
+
+            Console.WriteLine();
+
+            Console.Write($"Числа в массиве arg: ");
+            for (int i = 0; i < arg.Length; i++)
+            {
+                arg[i] = random.Next(10, 50);
+                Console.Write($"{arg[i]} ");
+            }
+
+            Console.WriteLine();
+
+            max = ob.MaxVal(mas);
+            min = ob.MinVal(mas);
+            Console.WriteLine();
+
+            Console.WriteLine($"Максимальное число в массиве mas {max}");
+            Console.WriteLine($"Минимальное число в массиве mas {min}");
+
+            max = ob.MaxVal(arg);
+            min = ob.MinVal(arg);
+            Console.WriteLine();
+
+            Console.WriteLine($"Максимальное число в массиве arg {max}");
+            Console.WriteLine($"Минимальное число в массиве arg {min}");
+        }
+    }
+}

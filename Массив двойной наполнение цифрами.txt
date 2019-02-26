@@ -1,0 +1,23 @@
+using System;
+
+namespace Учеба
+{
+    class UseRect
+    {
+        static void Main()
+        {
+            int t, j;
+            int[,] arr = new int[3, 5];
+
+            for (t = 0; t < 3; t++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    arr[t, j] = (t * 5) + j + 1;
+                    Console.Write("{0}\t", arr[t, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}

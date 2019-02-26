@@ -1,0 +1,91 @@
+using System;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Print(object print)
+        {
+            Console.WriteLine(print);
+        }
+
+        static void Main()
+        {
+            object[] ga = new object[10];
+            object[] name = new object[4] { "Яблоки", false, "Апельсины", true };
+
+            int[] int_type = new int[] { };
+            double[] double_type = new double[] { };
+            string[] words = new string[] { };
+            string[] other = new string[] { };
+
+            for (int i = 0; i < 3; i++)
+            {
+                ga[i] = i;
+            }
+
+            for (int i = 3; i < 6; i++)
+            {
+                ga[i] = (double)i / 2;
+            }
+
+            Array.ConstrainedCopy(name, 0, ga, 6, 4);
+
+            for (int i = 0; i < ga.Length; i++)
+            {
+                if (ga[i] is int)
+                {
+                    if (int_type.Length < ga.Length)
+                    {
+                        for (int j = 0; j < ga.Length; j++)
+                        {
+                            Array.Resize(ref int_type, int_type.Length + j);
+                        }
+                    }
+
+                    int_type[i] += (int)ga[i];
+                    Print($"Тип int: {int_type[i]}");
+                }
+                else if (ga[i] is double)
+                {
+                    if (double_type.Length < ga.Length)
+                    {
+                        for (int j = 0; j < ga.Length; j++)
+                        {
+                            Array.Resize(ref double_type, double_type.Length + j);
+                        }
+                    }
+
+                    double_type[i] += (double)ga[i];
+                    Print($"Тип double: {double_type[i]}");
+                }
+                else if (ga[i] is string)
+                {
+                    if (words.Length < ga.Length)
+                    {
+                        for (int j = 0; j < ga.Length; j++)
+                        {
+                            Array.Resize(ref words, words.Length + j);
+                        }
+                    }
+
+                    words[i] += ga[i];
+                    Print($"Тип string: {words[i]}");
+                }
+                else
+                {
+                    if (other.Length < ga.Length)
+                    {
+                        for (int j = 0; j < ga.Length; j++)
+                        {
+                            Array.Resize(ref other, other.Length + j);
+                        }
+                    }
+
+                    other[i] += ga[i];
+                    Print($"То, что осталось: {other[i]}");
+                }
+            }
+        }
+    }
+}

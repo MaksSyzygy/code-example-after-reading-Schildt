@@ -1,0 +1,49 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate void MyEventHandler();
+
+    class MyEvent
+    {
+        public event MyEventHandler SomeEvent;
+
+        public void OnSomeEvent()
+        {
+            SomeEvent?.Invoke();
+        }
+    }
+
+    class Program
+    {
+        class X
+        {
+            int id;
+            public X(int x)
+            {
+                id = x;
+            }
+
+            public void XHandler()
+            {
+                Console.WriteLine($"Событие получено объектом {id}");
+            }
+        }
+
+        static void Main()
+        {
+            MyEvent myEvent = new MyEvent();
+
+            X ob1 = new X(1);
+            X ob2 = new X(2);
+            X ob3 = new X(3);
+
+            myEvent.SomeEvent += ob1.XHandler;
+            myEvent.SomeEvent += ob2.XHandler;
+            myEvent.SomeEvent += ob3.XHandler;
+
+            myEvent.OnSomeEvent();
+        }
+    }
+}

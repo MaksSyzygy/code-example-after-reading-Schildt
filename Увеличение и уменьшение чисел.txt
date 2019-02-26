@@ -1,0 +1,41 @@
+using System;
+
+namespace ”чеба
+{
+    class MyClass
+    {
+        int a, b;
+
+        public MyClass Factory(int i, int j)
+        {
+            MyClass t = new MyClass();
+
+            t.a = i;
+            t.b = j;
+
+            return t;
+        }
+
+        public void Show()
+        {
+            Console.WriteLine($"a и b: {a}, {b}");
+        }
+    }
+
+    class MakeOb
+    {
+        static void Main()
+        {
+            MyClass ob = new MyClass();
+            int i, j;
+
+            for (i = 0, j = 10; i <= 10; i++, j--)
+            {
+                MyClass anotherOb = ob.Factory(i, j);
+                anotherOb.Show();
+            }
+
+            Console.WriteLine();
+        }
+    }
+}

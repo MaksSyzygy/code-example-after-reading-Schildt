@@ -1,0 +1,48 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate string StrMod(string str);
+
+    class Test
+    {
+        static string Replace(string s)
+        {
+            Console.WriteLine("Замена пробелов дефисами");
+            return s.Replace(' ', '-');
+        }
+        static string Reverse(string s)
+        {
+            string temp = "";
+            int i, j;
+
+            Console.WriteLine("Обращение строки");
+            for (j = 0, i = s.Length - 1; i >= 0; i--, j++)
+            {
+                temp += s[i];
+            }
+            return temp;
+        }
+
+        static void Main()
+        {
+            StrMod strMod = new StrMod(Reverse);
+            string str;
+
+            str = strMod("Это простой тест");
+            Console.WriteLine($"После - {str}");
+
+            Console.WriteLine();
+
+            strMod = new StrMod(Replace);
+
+            str = strMod("Это простой тест");
+            Console.WriteLine($"После - {str}");
+        }
+    }
+}
+
+Урощенный вид. В упрощенном виде при объявлении делегата не используется new:
+Вместо - StrMod strMod = new StrMod(Reverse);
+Используется - StrMod strMod = Reverse;

@@ -1,0 +1,65 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    class Print
+    {
+        public void Result(string player, int value)
+        {
+            Console.WriteLine($"Очки {player} игрока - {value}");
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Random random = new Random();
+            Print print = new Print();
+
+            bool win = false;
+
+            int player_1 = 0;
+            string player_1_name = "первого";
+
+            int player_2 = 0;
+            string player_2_name = "второго";
+
+            int summ_1 = 0;
+            int summ_2 = 0;
+            string next;
+
+            do
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    player_1 = random.Next(1, 100);
+                    player_2 = random.Next(1, 100);
+
+                    Console.WriteLine();
+
+                    print.Result(player_1_name, player_1);
+                    print.Result(player_2_name, player_2);
+
+                    summ_1 += player_1;
+                    if (summ_1 >= 1000)
+                    {
+                        Console.WriteLine("Выиграл первый игрок");
+                        break;
+                    }
+
+                    summ_2 += player_2;
+                    if (summ_2 >= 1000)
+                    {
+                        Console.WriteLine("Выиграл второй игрок");
+                        break;
+                    }
+
+                    Console.WriteLine($"Сумма очков {player_1_name} игрока - {summ_1}");
+                    Console.WriteLine($"Сумма очков {player_2_name} игрока - {summ_2}");
+                }
+                next = Console.ReadLine();
+            } while (next == "q");
+        }
+    }
+}

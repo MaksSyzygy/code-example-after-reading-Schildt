@@ -1,0 +1,79 @@
+using System;
+
+namespace Учеба
+{
+    class Weapon
+    {
+        public int MachineGun()
+        {
+            Random random = new Random();
+            int[] MachineGunValue = new int[10];
+            int MachineGunDamage = 0;
+            int PatronAmount = 8;
+
+            for (int i = 1; i <= PatronAmount; i++)
+            {
+                MachineGunValue[i] = random.Next(9, 18);
+                //Console.WriteLine($"Единичный урон: {MachineGunValue[i]}");
+            }
+            for (int i = 1; i <= PatronAmount; i++)
+            {
+                MachineGunDamage += MachineGunValue[i];
+            }
+            Console.WriteLine($"Общий урон автомата: {MachineGunDamage}");
+            return MachineGunDamage;
+        }
+
+        public int ShotGun()
+        {
+            Random random = new Random();
+            int[] ShotGunValue = new int[10];
+            int ShotGunDamage = 0;
+            int PatronAmount = 6;
+
+            for(int i = 1; i <= PatronAmount; i++)
+            {
+                ShotGunValue[i] = random.Next(13, 23);
+                //Console.WriteLine($"Единичный урон: {ShotGunValue[i]}");
+            }
+            for(int i = 1; i <= PatronAmount; i++)
+            {
+                ShotGunDamage += ShotGunValue[i];
+            }
+            Console.WriteLine($"Общий урон дробовика: {ShotGunDamage}");
+            return ShotGunDamage;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Weapon weapon = new Weapon();
+
+            string repeat;
+            int try_amount = 0;
+            int auto_points = 0;
+            int gun_points = 0;
+            do
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    if (weapon.MachineGun() > weapon.ShotGun())
+                    {
+                        auto_points += 1;
+                    }
+                    else
+                    {
+                        gun_points += 1;
+                    }
+                }
+
+                Console.WriteLine($"Очки автомата {auto_points}, очки дробовика {gun_points}");
+                Console.WriteLine($"Количество попыток: {try_amount = auto_points + gun_points}");
+
+                repeat = Console.ReadLine();
+            } while (repeat == "q");
+        }
+    }
+}

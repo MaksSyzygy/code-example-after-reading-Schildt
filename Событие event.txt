@@ -1,0 +1,34 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate void MyEventHandler();
+
+    class MyEvent
+    {
+        public event MyEventHandler SomeEvent;
+
+        public void OnSomeEvent()
+        {
+            SomeEvent?.Invoke();
+        }
+    }
+
+    class Program
+    {
+        static void Handler()
+        {
+            Console.WriteLine("Произошло событие");
+        }
+
+        static void Main()
+        {
+            MyEvent myEvent = new MyEvent();
+
+            myEvent.SomeEvent += Handler;
+
+            myEvent.OnSomeEvent();
+        }
+    }
+}

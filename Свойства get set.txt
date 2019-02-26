@@ -1,0 +1,37 @@
+using System;
+
+namespace Учеба
+{
+    class Client
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string City { get; set; }
+
+        public Client(string name, int age, string city)
+        {
+            Name = name;
+            Age = age;
+            City = city;
+        }
+
+        public void Print(object print)
+        {
+            Console.WriteLine($"{print}\n");
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Client client = new Client($"Валера", 23, "Днепр");
+            client.Print($"{client.Name}, {client.Age} года, {client.City}");
+
+            Client client_1 = new Client($"Петя", 10, "Воронеж");
+            client_1.Print($"{client_1.Name}, {client_1.Age} лет, {client_1.City}");
+
+            Client client_2 = new Client($"Вася", 33, "Киев");
+            Console.WriteLine(client_2.Name + " " + client_2.Age +  " года " + client_2.City);
+        }
+    }
+}

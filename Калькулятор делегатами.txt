@@ -1,0 +1,44 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate int Message(int x, int y);
+
+    class Program
+    {
+        static void Main()
+        {
+            Program program = new Program();
+
+            Message message = Summ;
+            program.Print(message(5, 10));
+
+            message = Subtract;
+            program.Print(message(20, 10));
+
+            message = Multiply;
+            program.Print(message(5, 9));
+        }
+
+        private static int Summ(int x, int y)
+        {
+            return x + y;
+        }
+
+        private static int Subtract(int x, int y)
+        {
+            return x - y;
+        }
+
+        private static int Multiply(int x, int y)
+        {
+            return x * y;
+        }
+
+        void Print(int print)
+        {
+            Console.WriteLine($"Результат равен - {print}");
+        }
+    }
+}

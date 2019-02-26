@@ -1,0 +1,27 @@
+using System;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] nums = new int[4];
+
+            try
+            {
+                for(int i = 0; i < 10; i++)
+                {
+                    nums[i] = i;
+                    Console.WriteLine($"nums[{i}] : {nums[i]}");
+                }
+            }
+
+            catch(IndexOutOfRangeException)
+            {
+                Console.WriteLine("Индекс вышел за границы массива");
+            }
+            Console.WriteLine("После блока перехвата исключения");
+        }
+    }
+}

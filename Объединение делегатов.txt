@@ -1,0 +1,33 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    class Program
+    {
+        delegate void Message();
+
+        static void Main()
+        {
+            Message message = Hello;
+            message += What;
+            message += Buy;
+            message();
+        }
+
+        public static void Buy()
+        {
+            Console.WriteLine("До свидания!");
+        }
+
+        public static void Hello()
+        {
+            Console.WriteLine("Добрый день");
+        }
+
+        public static void What()
+        {
+            Console.WriteLine("Да? Что я могу сделать для Вас?");
+        }
+    }
+}

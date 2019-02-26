@@ -1,0 +1,44 @@
+using System;
+using System.IO;
+
+namespace Учеба
+{
+    delegate int Summ(int sum);
+    delegate int Res();
+
+    class Program
+    {
+        static void Main()
+        {
+            Program program = new Program();
+            int result;
+
+            Summ summ = delegate (int sum)
+            {
+                int add = 0;
+                for(int i = 0; i <= sum; i++)
+                {
+                    add += i;
+                }
+                return add;
+            };
+
+            result = summ(5);
+            program.Print(5, result);
+
+            result = summ(10);
+            program.Print(10, result);
+
+            result = summ(7);
+            program.Print(7, result);
+
+            result = summ(15);
+            program.Print(15, result);
+        }
+
+        public void Print(int value, int print)
+        {
+            Console.WriteLine($"Сумма чисел от нуля до {value} равна {print}");
+        }
+    }
+}

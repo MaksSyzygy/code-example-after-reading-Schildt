@@ -1,0 +1,25 @@
+using System;
+
+namespace Учеба
+{
+    class UseRect
+    {
+        static void Main()
+        {
+            int sum = 0;
+            int[] nums = new int[10];
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+                nums[i] = i;
+            }
+
+            foreach(int x in nums)
+            {
+                sum += x;
+                Console.WriteLine("Значение элементов массива: " + x);
+            }
+            Console.WriteLine("Сумма элементов массива: " + sum);
+        }
+    }
+}

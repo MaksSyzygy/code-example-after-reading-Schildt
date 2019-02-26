@@ -1,0 +1,55 @@
+using System;
+
+namespace Учеба
+{
+    class ClientForm
+    {
+        public string ClientInfo = "Клиенты банка";
+        public string Name;
+        public int Age;
+        public string City;
+        public int Salary;
+        public object DepositeValue;
+
+        public void ClientPrint()
+        {
+            Console.WriteLine($"Раздел: {ClientInfo}, Имя: {Name}, возраст: {Age}, город: {City}, зарплата: {Salary}, депозит: {DepositeValue}");
+        }
+    }
+
+    class Client_1 : ClientForm
+    {
+        public Client_1(string name, int age, string city, int salary, object deposite_value)
+        {
+            Name = name;
+            Age = age;
+            City = city;
+            Salary = salary;
+            DepositeValue = deposite_value;
+        }
+    }
+
+    class Client_2 : ClientForm
+    {
+        public Client_2(string name, int age, string city, int salary, int deposite_value)
+        {
+            Name = name;
+            Age = age;
+            City = city;
+            Salary = salary;
+            DepositeValue = deposite_value;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Client_1 client_1 = new Client_1("Вася", 23, "Киев", 2000, false);
+            Client_2 client_2 = new Client_2("Петя", 56, "Киев", 1000000, 1000 * 100000);
+
+            client_1.ClientPrint();
+            client_2.ClientPrint();
+        }
+    }
+}

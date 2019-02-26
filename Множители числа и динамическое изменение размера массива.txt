@@ -1,0 +1,52 @@
+using System;
+
+namespace Учеба
+{
+    class Factor
+    {
+
+        public int[] FindFactors(int num, out int numfactors)
+        {
+            int size = 1;
+            int[] facts;
+            facts = new int[size];
+            int i, j;
+
+            for (i = 2, j = 0; i < num / 2 + 1; i++)
+            {
+                if ((num % i) == 0)
+                {
+                    facts[j] = i;
+                    if (size < facts[j])
+                    {
+                        Array.Resize(ref facts, facts.Length + 1);
+                    }
+                    j++;
+                }
+            }
+            numfactors = j;
+            return facts;
+        }
+    }
+
+    class FindFacts
+    {
+        static void Main()
+        {
+            Factor f = new Factor();
+            int numfactors;
+            int[] factors;
+            int num = 600;
+
+            factors = f.FindFactors(num, out numfactors);
+            Console.WriteLine($"Множители числа {num}: ");
+
+            for (int i = 0; i < numfactors; i++)
+            {
+                Console.Write(factors[i] + " ");
+            }
+
+            Console.WriteLine();
+        }
+    }
+}
