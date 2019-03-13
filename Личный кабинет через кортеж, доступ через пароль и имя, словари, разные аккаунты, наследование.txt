@@ -1,0 +1,131 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class Params
+    {
+        public string name;
+        public string city;
+        public string bankid;
+        public int money;
+        public string adress;
+        public string phone;
+    }
+
+    public class Account : Params
+    {
+        public Tuple<string, string, string, int, string, string> Acc_1()
+        {
+            return Tuple.Create(name = "Вася", city = "Киев", bankid = "78yrw3", money = 2541, adress = "ж/м Подол", phone = "0635555555");
+        }
+        public Tuple<string, string, string, int, string, string> Acc_2()
+        {
+            return Tuple.Create(name = "Петя", city = "Днепр", bankid = "67t897", money = 5896, adress = "ж/м Тополь", phone = "0987777777");
+        }
+        public Tuple<string, string, string, int, string, string> Acc_3()
+        {
+            return Tuple.Create(name = "Маша", city = "Львов", bankid = "7y887", money = 5471, adress = "ул. Шевченко", phone = "0504569874");
+        }
+        public Tuple<string, string, string, int, string, string> Acc_4()
+        {
+            return Tuple.Create(name = "Света", city = "Одесса", bankid = "432rw", money = 100000, adress = "просп. Свободы", phone = "0972845649");
+        }
+    }
+
+    public class Info : Account
+    {
+        public object[] GetAccounts()
+        {
+            Account account = new Account();
+            var cort1 = account.Acc_1();
+            var cort2 = account.Acc_2();
+            var cort3 = account.Acc_3();
+            var cort4 = account.Acc_4();
+            object[] cort = new object[] { cort1, cort2, cort3, cort4 };
+            return cort;
+        }
+    }
+
+    public class DictionaryData
+    {
+        public Dictionary<string, string> Data()
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("12345", "Вася");
+            data.Add("54321", "Петя");
+            data.Add("09876", "Маша");
+            data.Add("65432", "Света");
+            return data;
+        }
+    }
+
+    public class DictionaryAccount : Account
+    {
+        public Dictionary<string, object> DataAccount()
+        {
+            Dictionary<string, object> main_person = new Dictionary<string, object>();
+            main_person.Add("12345", Acc_1());
+            main_person.Add("54321", Acc_2());
+            main_person.Add("09876", Acc_3());
+            main_person.Add("65432", Acc_4());
+            return main_person;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Account account = new Account();
+            Info info = new Info();
+            Params parametrs = new Params();
+            DictionaryData dictionary_data = new DictionaryData();
+            DictionaryAccount dictionaryAccount = new DictionaryAccount();
+
+            bool false_name = true;
+            bool false_pass = true;
+
+            Console.Write("Введите имя пользователя - ");
+            string nickname = Console.ReadLine();
+
+            foreach (KeyValuePair<string, string> kvp in dictionary_data.Data())
+            {
+                if (nickname == kvp.Value)
+                {
+                    false_name = false;
+                    Console.Write("Введите пароль - ");
+                    string password = Console.ReadLine();
+
+                    if (password == kvp.Key)
+                    {
+                        false_pass = false;
+                        for (int i = 0; i < 1; i++)
+                        {
+                            if (password == kvp.Key)
+                            {
+                                Console.WriteLine($"Данные клиента - {dictionaryAccount.DataAccount()[password]}");
+                            }
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                if (false_name)
+                {
+                    Console.WriteLine($"Имя {nickname} не найдено");
+                    break;
+                }
+                if (false_pass)
+                {
+                    Console.WriteLine("Пароль не правильный");
+                    break;
+                }
+            }
+        }
+    }
+}

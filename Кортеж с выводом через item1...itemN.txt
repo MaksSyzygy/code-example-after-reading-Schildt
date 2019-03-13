@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Кортеж
+{
+    class Info
+    {
+        string name;
+        string city;
+        string bankID;
+        int money;
+        string adress;
+        string phone;
+
+        public Tuple<object[], object[]> Account()
+        {
+            object[] acc_1 = {name = "Вася", city = "Киев", bankID = "78y48e747",
+                money = 2354, adress = "Игоревская дом 5 кв 54", phone = "0635555555"};
+            object[] acc_2 = {name = "Петя", city = "Донецк", bankID = "874e5th",
+                money = 2354, adress = "где-то в центре", phone = "0987777777"};
+            return Tuple.Create(acc_1, acc_2);
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Info info = new Info();
+            for(int i = 0; i <info.Account().Item1.Length; i++)
+            {
+                Console.WriteLine(info.Account().Item1[i]);
+            }
+        }
+    }
+}

@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Кортеж
+{
+    public class Account
+    {
+        public Tuple<string, string, string, int, string, string> Acc_1()
+        {
+            return Tuple.Create("Вася", "Киев", "78yrw3", 2541, "Подол", "0635555555");
+        }
+        public Tuple<string, string, string, int, string, string> Acc_2()
+        {
+            return Tuple.Create("Петя", "Днепр", "67t897", 5896, "Тополь", "0987777777");
+        }
+    }
+
+    public class Info
+    {
+        public object[] GetAccounts()
+        {
+            Account account = new Account();
+            var cort1 = account.Acc_1();
+            var cort2 = account.Acc_2();
+            object[] cort = new object[] { cort1, cort2 };
+            return cort;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Account account = new Account();
+            Info info = new Info();
+            for (int i = 0; i < 1; i++)
+            {
+                Console.WriteLine($"Из метода Account, Acc_1 - {account.Acc_1()}");
+                Console.WriteLine($"Из метода Account, Acc_2 - {account.Acc_2()}");
+            }
+
+            for (int i = 0; i < info.GetAccounts().Length; i++)
+            {
+                Console.WriteLine($"Из метода Info - {info.GetAccounts()[i]}");
+            }
+        }
+    }
+}

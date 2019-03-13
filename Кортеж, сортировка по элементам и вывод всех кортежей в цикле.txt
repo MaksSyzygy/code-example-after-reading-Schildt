@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Кортеж
+{
+    public class Account
+    {
+        public string name;
+        public string city;
+        public string bankID;
+        public string money;
+        public string adress;
+        public string phone;
+
+        public new string ToString() { return $"{name}, {city}, {bankID}, {money}, {adress}, {phone}"; }
+    }
+    public class Info
+    {
+        public List<Account> GetAccount()
+        {
+            Account acc_1 = new Account
+            {
+                name = "Вася",
+                city = "Киев",
+                bankID = "78y48e747",
+                money = "2354",
+                adress = "Игоревская дом 5 кв 54",
+                phone = "0635555555"
+            };
+            Account acc_2 = new Account
+            {
+                name = "Петя",
+                city = "Донецк",
+                bankID = "874e5th",
+                money = "2354",
+                adress = "где-то в центре",
+                phone = "0987777777"
+            };
+            return new List<Account> { acc_1, acc_2 };
+        }
+    }
+
+    public class Print
+    {
+        public void Show(object name, object city, object bankID, object money, object adress, object phone)
+        {
+            Console.WriteLine("Имя - {0}, город - {1}, счет - {2}, средств - {3}, адрес - {4}, телефон - {5}", name, city, bankID, money, adress, phone);
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Print print = new Print();
+            Info info = new Info();
+            var cort = new Info().GetAccount();
+
+            foreach(var c in cort)
+            {
+                Console.WriteLine(c.ToString());//вывод всех элеметов cort
+            }
+
+            for(int i = 0; i < 1; i++)
+            {
+                Console.WriteLine($"Перебор через for - {cort[1].ToString()}");//вывод конкретного элемента cort
+            }
+        }
+    }
+}

@@ -1,0 +1,259 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class Account
+    {
+        public string name;
+        public string city;
+        public string bankid;
+        public int money;
+        public string adress;
+        public string phone;
+        public int debt;
+        public int credit;
+
+        public new string ToString() { return $"Имя - {name}\nГород - {city}\nНомер счета - {bankid}\nСумма - {money}\nЗадолженность за коммунальные - {debt}\nЗадолженность по кредитам - {credit}\nАдрес - {adress}\nТелефон - {phone}"; }
+    }
+
+    public class AccountData
+    {
+        public List<Account> GetAccount()
+        {
+            Account Acc_1 = new Account { name = "Вася", city = "Киев", bankid = "78yrw3", money = 6587, debt = 300, credit = 200, adress = "ж/м Подол", phone = "0635555555" };
+
+            Account Acc_2 = new Account { name = "Петя", city = "Днепр", bankid = "67t897", money = 5896, debt = 600, credit = 1500, adress = "ж/м Тополь", phone = "0987777777" };
+
+            Account Acc_3 = new Account { name = "Маша", city = "Львов", bankid = "7y887", money = 5471, debt = 450, credit = 700, adress = "ул. Шевченко", phone = "0504569874" };
+
+            Account Acc_4 = new Account { name = "Света", city = "Одесса", bankid = "432rw", money = 100000, debt = 1000, credit = 2000, adress = "просп. Свободы", phone = "0972845649" };
+
+            return new List<Account> { Acc_1, Acc_2, Acc_3, Acc_4 };
+        }
+    }
+
+    public class DictionaryData
+    {
+        public Dictionary<string, string> Data()
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("12345", "Вася");
+            data.Add("54321", "Петя");
+            data.Add("09876", "Маша");
+            data.Add("65432", "Света");
+            return data;
+        }
+    }
+
+    public class DictionaryAccount : AccountData
+    {
+        public Dictionary<string, object> DataAccount()
+        {
+            Dictionary<string, object> main_person = new Dictionary<string, object>();
+            main_person.Add("12345", GetAccount()[0].ToString());
+            main_person.Add("54321", GetAccount()[1].ToString());
+            main_person.Add("09876", GetAccount()[2].ToString());
+            main_person.Add("65432", GetAccount()[3].ToString());
+            return main_person;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            DictionaryData dictionary_data = new DictionaryData();
+            DictionaryAccount dictionaryAccount = new DictionaryAccount();
+            Account account = new Account();
+            AccountData accountData = new AccountData();
+
+            List<Account> client = new List<Account>();
+            client = dictionaryAccount.GetAccount();
+
+            bool false_name = true;
+            bool false_pass = true;
+
+            string next;
+            int add_sum;
+            int sup_sum;
+
+            Console.WriteLine("Вас приветствует симулятор Приват-Банка 2.0!");
+            Console.WriteLine();
+
+            Console.Write("Введите имя пользователя - ");//Вася, Петя, Маша, Света
+            string nickname = Console.ReadLine();
+
+            foreach (KeyValuePair<string, string> kvp in dictionary_data.Data())
+            {
+                if (nickname == kvp.Value)
+                {
+                    false_name = false;
+                    Console.Write("Введите пароль - ");//12345, 54321, 09876, 65432
+                    string password = Console.ReadLine();
+
+                    if (password == kvp.Key)
+                    {
+                        false_pass = false;
+                        for (int i = 0; i < 1; i++)
+                        {
+                            if (password == kvp.Key)
+                            {
+                                for (int j = 0; j < dictionaryAccount.GetAccount().Capacity; j++)
+                                {
+                                    if (dictionaryAccount.DataAccount()[password].ToString() == dictionaryAccount.GetAccount()[j].ToString())//сопостовление выбранного ключа/данных со списком аккаунтов
+                                    {
+                                        do
+                                        {
+                                            Console.WriteLine($"Выберите операцию из списка");
+
+                                            Console.WriteLine($"1. Информация о клиенте");
+                                            Console.WriteLine($"2. Внести деньги на счет");
+                                            Console.WriteLine($"3. Внести деньги на благотворительность");
+                                            Console.WriteLine($"4. Оплатить за коммунальные платежи");
+                                            Console.WriteLine($"5. Погасить кредит");
+                                            Console.WriteLine($"6. Выйти из аккаунта");
+
+                                            try
+                                            {
+                                                int res = int.Parse(Console.ReadLine());
+
+                                                switch (res)
+                                                {
+                                                    case 1:
+                                                        Console.WriteLine(client[j].ToString());
+                                                        break;
+                                                    case 2:
+                                                        Console.Write("Укажите добавляемую сумму - ");
+                                                        add_sum = int.Parse(Console.ReadLine());
+                                                        for (int sum = 0; sum < 1; sum++)
+                                                        {
+                                                            sum += add_sum;
+                                                            client[j].money = client[j].money + sum;
+                                                            Console.WriteLine($"Сумма на счете теперь - {client[j].money}");
+                                                        }
+                                                        break;
+                                                    case 3:
+                                                        Console.Write("Укажите сумму на благотворительность - ");
+                                                        sup_sum = int.Parse(Console.ReadLine());
+                                                        for (int sum = 0; sum < 1; sum++)
+                                                        {
+                                                            sum += sup_sum;
+                                                            if (sum > client[j].money)
+                                                            {
+                                                                Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                                                continue;
+                                                            }
+                                                            client[j].money = client[j].money - sum;
+                                                            Console.WriteLine($"На благотворительность отправлено {sum}, спасибо за Вашу помощь!");
+                                                            Console.WriteLine($"Сумма на счету - {client[j].money}");
+                                                        }
+                                                        break;
+                                                    case 4:
+                                                        if (client[j].debt == 0)
+                                                        {
+                                                            Console.WriteLine("У Вас нет долгов по коммунальным платежам");
+                                                        }
+                                                        else if (client[j].debt < 0)
+                                                        {
+                                                            Console.WriteLine("У Вас нет долгов по коммунальным платежам!");
+                                                            Console.WriteLine($"Сумма переплаты в счет на следующий месяц составляет - {Math.Abs(client[j].debt)}");
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.Write($"Ваш долг - {client[j].debt}, сумма к оплате - ");
+                                                            sup_sum = int.Parse(Console.ReadLine());
+                                                            for (int sum = 0; sum < 1; sum++)
+                                                            {
+                                                                sum += sup_sum;
+                                                                if (sum > client[j].money)
+                                                                {
+                                                                    Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                                                    continue;
+                                                                }
+                                                                client[j].money = client[j].money - sum;
+                                                                client[j].debt = client[j].debt - sum;
+                                                                if (client[j].debt == 0)
+                                                                {
+                                                                    Console.WriteLine("Долг за коммунальные платежи оплачен");
+                                                                }
+                                                                else if (client[j].debt < 0)
+                                                                {
+                                                                    Console.WriteLine($"Сумма переплаты в счет на следующий месяц составляет - {Math.Abs(client[j].debt)}");
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.WriteLine($"Ваш долг за коммунальные теперь составляет - {client[j].debt}");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case 5:
+                                                        if (client[j].credit <= 0)
+                                                        {
+                                                            Console.WriteLine("У Вас нет долгов по кредитным средствам");
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.Write($"Задолженность по кредитным средствам - {client[j].credit}, сумма к оплате - ");
+                                                            sup_sum = int.Parse(Console.ReadLine());
+                                                            for (int sum = 0; sum < 1; sum++)
+                                                            {
+                                                                sum += sup_sum;
+                                                                if (sum > client[j].money)
+                                                                {
+                                                                    Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                                                    continue;
+                                                                }
+                                                                client[j].money = client[j].money - sum;
+                                                                client[j].credit = client[j].credit - sum;
+                                                                if (client[j].credit <= 0)
+                                                                {
+                                                                    Console.WriteLine("У Вас нет долгов по кредитным средствам");
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.WriteLine($"Ваш долг по кредитным средствам составляет - {client[j].credit}");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case 6:
+                                                        Console.WriteLine("Вы вышли из аккаунта! Всего доброго");
+                                                        return;
+                                                }
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine($"Некорректный выбор! Нажмите клавишу из списка!");
+                                            }
+                                            Console.WriteLine();
+                                            Console.WriteLine("Для продолжения нажми q");
+                                            next = Console.ReadLine();
+                                        } while (next == "q");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                if (false_name)
+                {
+                    Console.WriteLine($"Имя {nickname} не найдено");
+                    break;
+                }
+                if (false_pass)
+                {
+                    Console.WriteLine("Пароль не правильный");
+                    break;
+                }
+            }
+        }
+    }
+}

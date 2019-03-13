@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            string data_name = "Вася";
+            string data_pass = "12345";
+
+            Console.Write("Введите имя пользователя - ");
+            string nickname = Console.ReadLine();
+
+            do
+            {
+                if (nickname != data_name)
+                {
+                    Console.WriteLine("Имя не найдено");
+                    Console.Write("Введите имя пользователя - ");
+                    nickname = Console.ReadLine();
+                }
+            } while (nickname != data_name);
+
+            Console.Write("Введите пароль - ");
+            string password = Console.ReadLine();
+
+            do
+            {
+                if (password != data_pass)
+                {
+                    Console.WriteLine("Пароль не правильный");
+                    Console.Write("Введите пароль - ");
+                    password = Console.ReadLine();
+                }
+            } while (password != data_pass);
+
+            Console.WriteLine($"Приветствую, {nickname}");
+        }
+    }
+}

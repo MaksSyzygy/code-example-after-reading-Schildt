@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class EmailAddress
+    {
+        public string Name;
+        public string Address;
+
+        public EmailAddress(string n, string a)
+        {
+            Name = n;
+            Address = a;
+        }
+    }
+
+    public class Data
+    {
+        public List<EmailAddress> DataEmail()
+        {
+            EmailAddress acc_1 = new EmailAddress("Вася", "Vasia@gmail.com");
+            EmailAddress acc_2 = new EmailAddress("Петя", "Petia@mail.ru");
+            EmailAddress acc_3 = new EmailAddress("Маша", "Masha@gmail.ru");
+            return new List<EmailAddress> { acc_1, acc_2, acc_3 };
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Data data = new Data();
+
+            var eAddress = from entry in data.DataEmail()
+                           select entry.Address;
+
+            Console.WriteLine("Адреса электронной почты:");
+
+            foreach (string s in eAddress)
+            {
+                Console.WriteLine(" " + s);
+            }
+        }
+    }
+}

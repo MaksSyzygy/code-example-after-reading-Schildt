@@ -1,0 +1,63 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            Sort sort = new Sort();
+            sort.Ascending();
+            sort.Descending();
+        }
+    }
+
+    class Numbers
+    {
+        public int[] Nums_1()
+        {
+            int[] nums = { 10, -19, 4, 7, 2, -5, 0, 20, -8, -17, 14 };
+            return nums;
+        }
+    }
+
+    class Sort
+    {
+        public void Ascending()
+        {
+            Numbers numbers = new Numbers();
+            List<int> numb = new List<int>(numbers.Nums_1());
+            var num = from n in numb
+                      orderby n
+                      select n;
+
+            Console.Write("Значение по нарастающей: ");
+
+            foreach (int i in num)
+            {
+                Console.Write(i + ", ");
+            }
+            Console.WriteLine("\n");
+        }
+
+        public void Descending()
+        {
+            Numbers numbers = new Numbers();
+            List<int> numb = new List<int>(numbers.Nums_1());
+            var num = from n in numb
+                      orderby n descending
+                      select n;
+
+            Console.Write("Значение по убывающей: ");
+
+            foreach (int i in num)
+            {
+                Console.Write(i + ", ");
+            }
+            Console.WriteLine("\n");
+        }
+    }
+}

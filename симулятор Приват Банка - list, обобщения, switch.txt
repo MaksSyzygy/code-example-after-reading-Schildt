@@ -1,0 +1,170 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+
+namespace Учеба
+{
+    public class Clients
+    {
+        public List<object> Client_1()
+        {
+            string name = "Вася";
+            int money = 1000;
+            int debt = 300;
+            int credit = 200;
+
+            List<object> info = new List<object> { name, money, debt, credit };
+            return info;
+        }
+
+        public List<string> Info()
+        {
+            List<string> client_info = new List<string>{ "Имя клиента", "Сумма на счету", "Задолженность за коммунальные", "Задолженность по кредитам" };
+            return client_info;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Clients clients = new Clients();
+            List<object> client_1 = new List<object>(clients.Client_1());
+
+            string next;
+            int add_sum;
+            int sup_sum;
+
+            do
+            {
+                Console.WriteLine("Вас приветствует симулятор Приват-Банка!");
+                Console.WriteLine();
+
+                Console.WriteLine($"Выберите операцию из списка");
+
+                Console.WriteLine($"1. Информация о клиенте");
+                Console.WriteLine($"2. Внести деньги на счет");
+                Console.WriteLine($"3. Внести деньги на благотворительность");
+                Console.WriteLine($"4. Оплатить за коммунальные платежи");
+                Console.WriteLine($"5. Погасить кредит");
+
+                try
+                {
+                    int res = int.Parse(Console.ReadLine());
+
+                    switch (res)
+                    {
+                        case 1:
+                            for (int i = 0; i < clients.Info().Capacity; i++)
+                            {
+                                Console.WriteLine(clients.Info()[i] + " - " + client_1[i]);
+                            }
+                            break;
+                        case 2:
+                            Console.Write("Укажите добавляемую сумму - ");
+                            add_sum = int.Parse(Console.ReadLine());
+                            for (int i = 0; i < 1; i++)
+                            {
+                                i += add_sum;
+                                client_1[1] = (int)client_1[1] + i;
+                                Console.WriteLine($"Сумма на счете теперь - {client_1[1]}");
+                            }
+                            break;
+                        case 3:
+                            Console.Write("Укажите сумму на благотворительность - ");
+                            sup_sum = int.Parse(Console.ReadLine());
+                            for (int i = 0; i < 1; i++)
+                            {
+                                i += sup_sum;
+                                if (i > (int)client_1[1])
+                                {
+                                    Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                    continue;
+                                }
+                                client_1[1] = (int)client_1[1] - i;
+                                Console.WriteLine($"На благотворительность отправлено {i}, спасибо за Вашу помощь!");
+                                Console.WriteLine($"Сумма на счету - {client_1[1]}");
+                            }
+                            break;
+                        case 4:
+                            if ((int)client_1[2] == 0)
+                            {
+                                Console.WriteLine("У Вас нет долгов по коммунальным платежам");
+                            }
+                            else if ((int)client_1[2] < 0)
+                            {
+                                Console.WriteLine("У Вас нет долгов по коммунальным платежам!");
+                                Console.WriteLine($"Сумма переплаты в счет на следующий месяц составляет - {Math.Abs((int)client_1[2])}");
+                            }
+                            else
+                            {
+                                Console.Write($"Ваш долг - {client_1[2]}, сумма к оплате - ");
+                                sup_sum = int.Parse(Console.ReadLine());
+                                for (int i = 0; i < 1; i++)
+                                {
+                                    i += sup_sum;
+                                    if (i > (int)client_1[1])
+                                    {
+                                        Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                        continue;
+                                    }
+                                    client_1[1] = (int)client_1[1] - i;
+                                    client_1[2] = (int)client_1[2] - i;
+                                    if ((int)client_1[2] == 0)
+                                    {
+                                        Console.WriteLine("Долг за коммунальные платежи оплачен");
+                                    }
+                                    else if ((int)client_1[2] < 0)
+                                    {
+                                        Console.WriteLine($"Сумма переплаты в счет на следующий месяц составляет - {Math.Abs((int)client_1[2])}");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Ваш долг за коммунальные теперь составляет - {client_1[2]}");
+                                    }
+                                }
+                            }
+                            break;
+                        case 5:
+                            if ((int)client_1[3] <= 0)
+                            {
+                                Console.WriteLine("У Вас нет долгов по кредитным средствам");
+                            }
+                            else
+                            {
+                                Console.Write($"Задолженность по кредитным средствам - {client_1[3]}, сумма к оплате - ");
+                                sup_sum = int.Parse(Console.ReadLine());
+                                for(int i = 0; i < 1; i++)
+                                {
+                                    i += sup_sum;
+                                    if (i > (int)client_1[1])
+                                    {
+                                        Console.WriteLine("Недостаточно средств, введите другую сумму или пополните счет");
+                                        continue;
+                                    }
+                                    client_1[1] = (int)client_1[1] - i;
+                                    client_1[3] = (int)client_1[3] - i;
+                                    if ((int)client_1[3] <= 0)
+                                    {
+                                        Console.WriteLine("У Вас нет долгов по кредитным средствам");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Ваш долг по кредитным средствам составляет - {client_1[3]}");
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                catch(FormatException)
+                {
+                    Console.WriteLine($"Некорректный выбор! Нажмите клавишу из списка!");
+                }
+                Console.WriteLine();
+                Console.WriteLine("Для продолжения нажми q");
+                next = Console.ReadLine();
+            } while (next == "q");
+        }
+    }
+}
