@@ -16,6 +16,8 @@ namespace Учеба
             Name = n;
             Address = a;
         }
+
+        public string Introduce() { return $"Адрес - {Address}, Имя - {Name}"; }
     }
 
     public class Data
@@ -35,10 +37,15 @@ namespace Учеба
         {
             Data data = new Data();
 
+            foreach(var s in data.DataEmail())
+            {
+                Console.WriteLine(s.Introduce());
+            }
+
             var eAddress = from entry in data.DataEmail()
                            select entry.Address;
 
-            Console.WriteLine("Адреса электронной почты:");
+            Console.WriteLine("\nАдреса электронной почты:");
 
             foreach (string s in eAddress)
             {

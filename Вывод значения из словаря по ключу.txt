@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    internal class Account
+    {
+        public string name;
+        public string city;
+        public string bankid;
+        public int money;
+        public string adress;
+        public string phone;
+        public int debt;
+        public int credit;
+        public string password;
+
+        public string Info() { return $"Имя - {name}\nГород - {city}\nНомер счета - {bankid}\nСумма - {money}\nЗадолженность за коммунальные - {debt}\nЗадолженность по кредитам - {credit}\nАдрес - {adress}\nТелефон - {phone}"; }
+    }
+
+    internal class AccountData
+    {
+        public Dictionary<string, Account> Data()
+        {
+            Dictionary<string, Account> data = new Dictionary<string, Account>();
+            data.Add("вася", new Account { name = "Вася", city = "Киев", bankid = "78yrw3", money = 658, debt = 300, credit = 200, adress = "ж/м Подол", phone = "0635555555", password = "12345" });
+            data.Add("петя", new Account { name = "Петя", city = "Днепр", bankid = "67t897", money = 589, debt = 600, credit = 1500, adress = "ж/м Тополь", phone = "0987777777", password = "54321" });
+            data.Add("маша", new Account { name = "Маша", city = "Львов", bankid = "7y887", money = 547, debt = 450, credit = 700, adress = "ул. Шевченко", phone = "0504569874", password = "09876" });
+            data.Add("света", new Account { name = "Света", city = "Одесса", bankid = "432rw", money = 100, debt = 1000, credit = 2000, adress = "просп. Свободы", phone = "0972845649", password = "15975" });
+            return data;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            AccountData accountData = new AccountData();
+
+            Console.WriteLine(accountData.Data()["маша"].Info());
+        }
+    }
+}

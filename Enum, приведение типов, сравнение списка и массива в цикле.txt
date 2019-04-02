@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Program
+    {
+        enum WeekDays { Monday, Tuesday, Wednesday,
+        Thursday, Friday, Saturday, Sunday };
+
+    static void Main()
+        {
+            string[] WeekDaysRussianNarnes = { "Понедельник", "Вторник",
+            "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
+
+            WeekDays day;
+
+            for (day = WeekDays.Monday; day <= WeekDays.Sunday; day++)
+            {
+                string weekend = null;
+                if (day == WeekDays.Saturday || day == WeekDays.Sunday)
+                {
+                    weekend = "Выходной";
+                }
+                else
+                {
+                    weekend = "Рабочий";
+                }
+                Console.WriteLine($"{day} это {WeekDaysRussianNarnes[(int)day]} и это {weekend} день ");
+            }
+        }
+    }
+}

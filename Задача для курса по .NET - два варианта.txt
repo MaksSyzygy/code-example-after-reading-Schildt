@@ -1,0 +1,264 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class PetsData
+    {
+        public string AnimalType;
+        public string Name;
+        public string Breed;
+        public int Age;
+
+        public string Introduce() { return $"Тип - {AnimalType}, имя - {Name}, порода - {Breed}, возраст - {Age} лет"; }
+    }
+
+    public class Cat : PetsData
+    {
+        public Cat()
+        {
+            AnimalType = "Кошка";
+            Name = "Мурка";
+            Breed = "Сиамская";
+            Age = 7;
+        }
+    }
+
+    public class Dog : PetsData
+    {
+        public Dog()
+        {
+            AnimalType = "Собака";
+            Name = "Тузик";
+            Breed = "Такса";
+            Age = 10;
+        }
+    }
+
+    public class Petshop : PetsData
+    {
+        Cat cat = new Cat();
+        Dog dog = new Dog();
+
+        public void AddPet(string animal, string name, string breed, int age)
+        {
+            AnimalType = animal;
+            Name = name;
+            Breed = breed;
+            Age = age;
+            Console.WriteLine($"Тип - {animal}, имя - {name}, порода - {breed}, возраст - {age} лет");
+        }
+
+        public void InroduceAll()
+        {
+            Console.WriteLine($"{cat.Introduce()}\n{dog.Introduce()}\n");
+        }
+    }
+    
+    class Program
+    {
+        static void Main()
+        {
+            Petshop petshop = new Petshop();
+            petshop.AddPet("Гусь", "Вася", "белый", 3);
+            petshop.InroduceAll();
+        }
+    }
+}
+
+
+
+//Вариант с несколькими животными по категориям + ввод животного в консоль с клавиатуры с проверкой на тип данных и пустоту строки + ввод животного в конструктор
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class PetsData
+    {
+        public string AnimalType;
+        public string Name;
+        public string Breed;
+        public int Age;
+
+        public PetsData(string animaltype, string name, string breed, int age)//создаем параметризированный конструктор, чтоб каждый раз не вводить имя переменной
+        {
+            AnimalType = animaltype;
+            Name = name;
+            Breed = breed;
+            Age = age;
+        }
+
+        public string Introduce() { return $"Тип - {AnimalType}, имя - {Name}, порода - {Breed}, возраст - {Age} лет\n"; }//метод для вывода информации
+    }
+
+    public class Cat
+    {
+        public List<PetsData> GetCat()//создаем массив List с животными
+        {
+            PetsData cat_1 = new PetsData("Кошка", "Мурка", "Сиамская", 7);
+            PetsData cat_2 = new PetsData("Кошка", "Муся", "Сибирская", 5);
+            PetsData cat_3 = new PetsData("Кошка", "Дуся", "Короткошерстная", 9);
+
+            return new List<PetsData> { cat_1, cat_2, cat_3 };//возвращаем значения, которые можно по желанию вывести по индексу
+        }
+    }
+
+    public class Dog
+    {
+        public List<PetsData> GetDog()//тут все аналогично с котами
+        {
+            PetsData dog_1 = new PetsData("Собака", "Тузик", "Такса", 10);
+            PetsData dog_2 = new PetsData("Собака", "Бобик", "Овчарка", 6);
+            PetsData dog_3 = new PetsData("Собака", "Дружек", "Дворняга", 12);
+
+            return new List<PetsData> { dog_1, dog_2, dog_3 };
+        }
+    }
+
+    public class Petshop
+    {
+        Cat cat = new Cat();//инициализируем класс
+        Dog dog = new Dog();
+
+        static bool CheckString(string str)//проверка строки на содержания символов
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (char.IsLetter(str[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void AddPet()//метод для добавления нового животного с клавиатуры
+        {
+            string _AddAnimal;
+            string _AddName;
+            string _AddBreed;
+            int _AddAge;
+
+            while (true)
+            {
+                Console.Write("Введите тип животного - ");
+                _AddAnimal = Console.ReadLine();
+
+                if (_AddAnimal == string.Empty)//проверка на пустую строку. В строках ниже аналогично
+                {
+                    Console.WriteLine("Строка пуста! Введите тип животного");
+                    continue;
+                }
+
+                if (CheckString(_AddAnimal) == false)//проверка на символы тут и далее
+                {
+                    Console.WriteLine("Строка должна содержать символы!");
+                    continue;
+                }
+
+                break;
+            }
+
+            while (true)
+            {
+                Console.Write("Его имя - ");
+                _AddName = Console.ReadLine();
+
+                if (_AddName == string.Empty)
+                {
+                    Console.WriteLine("Строка пуста! Введите имя");
+                    continue;
+                }
+
+                if (CheckString(_AddName) == false)
+                {
+                    Console.WriteLine("Строка должна содержать символы!");
+                    continue;
+                }
+
+                break;
+            }
+
+            while (true)
+            {
+                Console.Write("Породу животного - ");
+                _AddBreed = Console.ReadLine();
+
+                if (_AddBreed == string.Empty)
+                {
+                    Console.WriteLine("Строка пуста! Введите породу");
+                    continue;
+                }
+
+                if (CheckString(_AddBreed) == false)
+                {
+                    Console.WriteLine("Строка должна содержать символы!");
+                    continue;
+                }
+
+                break;
+            }
+
+            while (true)
+            {
+                Console.Write("И возраст - ");
+                var input = Console.ReadLine();
+
+                if (int.TryParse(input, out _AddAge) == false)//проверка на число
+                {
+                    Console.WriteLine("Некорректный ввод! Введите число");
+                    continue;
+                }
+
+                break;
+            }
+
+            Console.WriteLine();
+
+            PetsData new_pet = new PetsData(_AddAnimal, _AddName, _AddBreed, _AddAge);
+
+            Console.WriteLine(new_pet.Introduce());
+        }
+
+        public void AddPetConstructor(string animal, string name, string breed, int age)//либо добавляем животного ручками в Main()
+        {
+            Console.WriteLine($"Тип - {animal}, имя - {name}, порода - {breed}, возраст - {age} лет\n");
+        }
+
+        public void InroduceAll()//выводим всех животных из классов cat и dog
+        {
+            foreach (var cats in cat.GetCat())
+            {
+                Console.WriteLine($"{cats.Introduce()}");
+            }
+
+            foreach (var dogs in dog.GetDog())
+            {
+                Console.WriteLine($"{dogs.Introduce()}");
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Petshop petshop = new Petshop();
+            petshop.AddPetConstructor("Попугай", "Кеша", "Какаду", 4);
+            petshop.AddPet();
+            petshop.InroduceAll();
+        }
+    }
+}
+
+

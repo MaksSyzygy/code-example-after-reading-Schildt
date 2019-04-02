@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class Info
+    {
+        public string[] level_1 = new string[12] { "Клокверк", "Бэтрайдер", "Тини", "Акс", "Тини", "Баунти Хантэр", "Энчантрес", "Тускар", "Дроу Рэйнджер", "Огр Маг", "Шэдоу Шаман", "Анти Маг" };
+        public string[] level_2 = new string[13] { "ЦМка", "Бистмастер", "Джагер", "Тимбер", "Квопа", "Пак", "Вич Доктор", "Слардар", "Чэос Кнайт", "Трэнт", "Луна", "Фурион", "Морф" };
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Info info = new Info();
+            Random random = new Random();
+
+            string next = "q";
+
+            do
+            {
+                Console.WriteLine(info.level_1[new Random().Next(0, info.level_1[0].Length)]);
+                next = Console.ReadLine();
+            } while (next == "q");
+        }
+    }
+}

@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class House
+    {
+        public int Widht { get; private set; } = 30;//защита поля от перезаписи
+
+        public int Height { get; private set; } = 20;
+
+        public int GetSquare()
+        {
+            int square = Widht * Height;
+            return square;
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            House house = new House();
+            /* house.Widht = 50; Недоступно по причине запрета изменять значение свойства Widht */
+            Console.WriteLine($"Площадь равна - {house.GetSquare()}");
+        }
+    }
+}

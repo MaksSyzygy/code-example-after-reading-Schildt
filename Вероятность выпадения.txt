@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            var rand = new Random();
+
+            for(int i = 0; i < 10; i++)
+            {
+                if (rand.NextDouble() < 0.5)
+                {
+                    Console.WriteLine("Поражение");
+                }
+                else
+                {
+                    Console.WriteLine("Победа");
+                }
+            }
+        }
+    }
+}
+
+
+
+//Или из метода
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Rand
+    {
+        private static readonly Random rnd = new Random();
+
+        public Rand()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                if (rnd.NextDouble() < 0.99)
+                {
+                    Console.WriteLine("Поражение");
+                }
+                else
+                {
+                    Console.WriteLine("Победа");
+                }
+            }
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Rand rand = new Rand();
+        }
+    }
+}
+
+
+
+//Или булевыми значениями
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Rand
+    {
+        private static readonly Random rnd = new Random();
+
+        public bool RandBool()
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                if (rnd.NextDouble() < 0.7)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Rand rand = new Rand();
+
+            for(int i = 0; i < 10; i++)
+            {
+                if (rand.RandBool() == true)
+                {
+                    Console.WriteLine("Победа");
+                }
+                else
+                {
+                    Console.WriteLine("Поражение");
+                }
+            }
+        }
+    }
+}

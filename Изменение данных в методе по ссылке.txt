@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Pets
+    {
+        public string AnimalType { get; set; }
+        public string Name { get; set; }
+        public string Breed { get; set; }
+        public int Age { get; set; }
+
+        public string Introduce() { return $"Тип - {AnimalType}, имя - {Name}, порода - {Breed}, возраст - {Age}"; }
+    }
+
+    class Cat : Pets
+    {
+        public void Cat_1(string animaltype, string name, string breed, int age)
+        {
+            AnimalType = animaltype;
+            Name = name;
+            Breed = breed;
+            Age = age;
+
+            animaltype = "Кошка";
+            name = "Муся";
+            breed = "Сиамская";
+            age = 7;
+        }
+
+        public void ChangeCat(ref string animaltype, ref string name, ref string breed, ref int age)
+        {
+            Cat_1(animaltype, name, breed, age);
+
+            animaltype = AnimalType;
+            name = Name;
+            breed = Breed;
+            age = Age;
+        }
+    }
+
+    class Print
+    {
+        public void Show(string value)
+        {
+            Console.WriteLine(value);
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Pets pets = new Pets();
+            Cat cat = new Cat();
+            Print print = new Print();
+
+            string new_type = "кошак";
+            string new_name = "Дуся";
+            string new_breed = "британская";
+            int new_age = 4;
+
+            cat.ChangeCat(ref new_type, ref new_name, ref new_breed, ref new_age);
+            print.Show(cat.Introduce());
+        }
+    }
+}

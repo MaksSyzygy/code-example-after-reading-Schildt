@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public static class Sum
+    {
+        public static int GetSumOfRandomElementsFromArray(List<int> arr, int elementsToGet)
+        {
+            var rnd = new Random();
+
+            // рандомно перетасовываем массив и сохраняем его в Лист
+            var shuffledArray = arr.OrderBy(i => rnd.Next()).ToList();
+            Console.WriteLine(shuffledArray);
+
+            // берём первые elementsToGet элементов и суммируем
+            var sum = shuffledArray.GetRange(0, elementsToGet).Sum();
+
+            return sum;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = { 1, 2, 3, 4 };
+            var sum = Sum.GetSumOfRandomElementsFromArray(arr.ToList(), 3);
+            Console.WriteLine(sum);
+        }
+    }
+}

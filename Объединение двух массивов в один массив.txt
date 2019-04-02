@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Program
+    {
+        static void Main()
+        {
+            string[] mas = new string[4] { "яблоко", "груша", "вишня", "абрикос" };
+            string[] mas2 = new string[4] { "апельсин", "мандарин", "ананас", "манго" };
+
+            List<string> list = new List<string>();
+            list.AddRange(mas);
+            list.AddRange(mas2);
+
+            string[] res = list.ToArray();
+
+            foreach(var s in res)
+            {
+                Console.WriteLine(s.ToString());
+            }
+        }
+    }
+}
