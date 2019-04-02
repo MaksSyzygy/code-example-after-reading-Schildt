@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class Info//создаем класс с массивами из героев
+    {
+        public string[] level_1 = new string[12] { "Клокверк", "Бэтрайдер", "Тини", "Акс", "Тини", "Баунти Хантэр", "Энчантрес", "Тускар", "Дроу Рэйнджер", "Огр Маг", "Шэдоу Шаман", "Анти Маг" };
+        public string[] level_2 = new string[13] { "ЦМка", "Бистмастер", "Джагер", "Тимбер", "Квопа", "Пак", "Вич Доктор", "Слардар", "Чэос Кнайт", "Трэнт", "Луна", "Фурион", "Морф" };
+        public string[] level_3 = new string[13] { "Веномансер", "Ликантроп", "Омник", "Разор", "Виндрэйнджер", "Фантомка", "Абаддон", "Сэнд Кинг", "Сларк", "Снайпер", "Вайпер", "Шэдоу Финд", "Лина" };
+        public string[] level_4 = new string[10] { "Дум", "Кунка", "Троль", "Кипер оф зе Лайт", "Некрофос", "Темпларка", "Алхимик", "Дизраптор", "Медуза", "Драгон Кнайт" };
+        public string[] level_5 = new string[5] { "Гирокоптер", "Лич", "Тайд", "Энигма", "Минер" };
+    }
+
+    class RandHero//класс в котором будет вычесляться случайный элемент массива
+    {
+        private static readonly Random rnd = new Random((int)DateTime.Now.Ticks);//текущее кол-во тиков реального времени
+
+        public int Result(int lenght)//задаем констуктор для длины выбранного массива данных дабы не выйти за границы
+        {
+            Info info = new Info();
+
+            int res = rnd.Next(0, lenght);//устанавливаем диапазон работы рандомайзера
+            return res;
+        }
+    }
+
+    class Rand//класс для вычесления
+    {
+        Info info = new Info();//инициализируем классы
+        RandHero randHero = new RandHero();
+
+        private static readonly Random rnd = new Random((int)DateTime.Now.Ticks);//аналогично, но для вычесления случайного числа для выбора случайного массива из героев
+
+        public Rand()
+        {
+            for (int i = 0; i < 5; i++)//кол-во нужных героев
+            {
+                if (rnd.NextDouble() < 0.05)//вероятность выпадения героя по уровням
+                {
+                    Console.WriteLine(info.level_5[randHero.Result(info.level_5.Length)]);
+                }
+                else if (rnd.NextDouble() < 0.15)
+                {
+                    Console.WriteLine(info.level_4[randHero.Result(info.level_4.Length)]);
+                }
+                else if (rnd.NextDouble() < 0.25)
+                {
+                    Console.WriteLine(info.level_3[randHero.Result(info.level_3.Length)]);
+                }
+                else if (rnd.NextDouble() < 0.35)
+                {
+                    Console.WriteLine(info.level_2[randHero.Result(info.level_2.Length)]);
+                }
+                else
+                {
+                    Console.WriteLine(info.level_1[randHero.Result(info.level_1.Length)]);
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            string next = "q";
+
+            do//играемся, смотрим, что получилось
+            {
+                Rand rand = new Rand();
+                next = Console.ReadLine();
+            } while (next == "q");
+        }
+    }
+}
