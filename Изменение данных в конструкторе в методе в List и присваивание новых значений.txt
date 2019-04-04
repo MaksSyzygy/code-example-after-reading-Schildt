@@ -1,0 +1,169 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    public class EmailAddress
+    {
+        public string Name { get; set; }
+        public string Address { get; set; }
+
+        public EmailAddress(string name, string address)//конструктор для данных
+        {
+            Name = name;
+            Address = address;
+        }
+
+        public void ChangeInfo(string name, string address)//этот метод меняет данные
+        {
+            Name = name;
+            Address = address;
+        }
+
+        public string Introduce() { return $"Адрес - {Address}, Имя - {Name}"; }//вывод информации
+    }
+
+    public class Data
+    {
+        private List<EmailAddress> dataEmail;//создаем переменную для хранения List`ов
+
+        public Data()
+        {
+            EmailAddress acc_1 = new EmailAddress("Вася", "Vasia@gmail.com");//присваиваем значения
+            EmailAddress acc_2 = new EmailAddress("Петя", "Petia@mail.ru");
+            EmailAddress acc_3 = new EmailAddress("Маша", "Masha@gmail.ru");
+            dataEmail = new List<EmailAddress> { acc_1, acc_2, acc_3 };
+        }
+
+        public List<EmailAddress> DataEmail() => dataEmail;
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Data data = new Data();
+
+            data.DataEmail()[1].ChangeInfo("Миша", "misha@gamil.com");//присваиваем
+
+            foreach (var s in data.DataEmail())
+            {
+                Console.WriteLine(s.Introduce());//получаем
+            }
+        }
+    }
+}
+
+
+Для закрепления материала ещё разок другой пример!!!
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Pets
+    {
+        public string AnimalType { get; set; }
+        public string Name { get; set; }
+        public string Breed { get; set; }
+        public int Age { get; set; }
+
+        public Pets(string animaltype, string name, string breed, int age)
+        {
+            AnimalType = animaltype;
+            Name = name;
+            Breed = breed;
+            Age = age;
+        }
+
+        public void ChangePets(string animaltype, string name, string breed, int age)
+        {
+            AnimalType = animaltype;
+            Name = name;
+            Breed = breed;
+            Age = age;
+        }
+
+        public string Introduce() { return $"Тип - {AnimalType}, имя - {Name}, порода - {Breed}, возраст - {Age}"; }
+    }
+
+    class Cat
+    {
+        private List<Pets> cats;
+
+        public Cat()
+        {
+            Pets cat_1 = new Pets("Кошка", "Мурка", "Сиамская", 7);
+            Pets cat_2 = new Pets("Котенок", "Дуся", "Сфинкс", 1);
+            Pets cat_3 = new Pets("Кот", "Барсик", "Безпородный", 12);
+            cats = new List<Pets> { cat_1, cat_2, cat_3 };
+        }
+
+        public List<Pets> Cats() => cats;
+    }
+
+    class Dog
+    {
+        private List<Pets> dogs;
+
+        public Dog()
+        {
+            Pets dog_1 = new Pets("Собака", "Жучка", "Сербернар", 18);
+            Pets dog_2 = new Pets("Собака", "Жучек", "Переводняк", 16);
+            Pets dog_3 = new Pets("Собака", "Тризор", "Переводняк", 10);
+            dogs = new List<Pets> { dog_1, dog_2, dog_3 };
+        }
+
+        public List<Pets> Dogs() => dogs;
+    }
+
+    class Intro//класс для вывода всех животных
+    {
+        Cat cat = new Cat();
+        Dog dog = new Dog();
+
+        public Intro(Cat cat, Dog dog)//конструктор для контроля изменений значений
+        {
+            this.cat = cat;//передаем ссылки на объекты
+            this.dog = dog;
+        }
+
+        public void InroduceAll()//выводим всех животных из классов cat и dog
+        {
+            foreach (var cats in cat.Cats())
+            {
+                Console.WriteLine($"{cats.Introduce()}");
+            }
+
+            foreach (var dogs in dog.Dogs())
+            {
+                Console.WriteLine($"{dogs.Introduce()}");
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Cat cat = new Cat();
+            Dog dog = new Dog();
+            Intro intro = new Intro(cat, dog);
+
+            cat.Cats()[0].ChangePets("Кися", "Мураська", "Сиамская", 10);//меняем значения
+            dog.Dogs()[1].ChangePets("Собака", "Жучек", "Верный друг", 16);
+
+            intro.InroduceAll();
+        }
+    }
+}
+
