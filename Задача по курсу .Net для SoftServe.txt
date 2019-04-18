@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Учеба
+{
+    class Employee
+    {
+        public string Name;
+        public string Surname;
+        public int Date;
+        public string Gender;
+        public string Language;
+        public string LanguageLevel;
+
+        public Employee(string name, string surname, int date, string gender, string language, string languagelevel)
+        {
+            Name = name;
+            Surname = surname;
+            Date = date;
+            Gender = gender;
+            Language = language;
+            LanguageLevel = languagelevel;
+        }
+
+        public string Introduce() { return $"Имя - {Name}\nФамилия - {Surname}\nВозраст - {Date}\nПол - {Gender},\nЯзык - {Language}\nУровень владения - {LanguageLevel}"; }
+    }
+
+    class Level
+    {
+        public string[] Languages()
+        {
+            List<string> levels = new List<string>();
+            levels.Add("pre-intermediate");
+            levels.Add("intermediate");
+            levels.Add("upper-intermediate");
+            levels.Add("advanced");
+
+            string[] mas = levels.ToArray();
+            return mas;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Level level = new Level();
+            Employee employee_1 = new Employee("Вася", "Пупкин", 42, "мужской", "английский", "pre-intermediate");
+            Employee employee_2 = new Employee("Петя", "Иванов", 44, "мужской", "английский", "intermediate");
+            Employee employee_3 = new Employee("Маша", "Крылова", 22, "женский", "английский", "upper-intermediate");
+            Employee employee_4 = new Employee("Оля", "Петрова", 58, "женский", "английский", "advanced");
+            Employee employee_5 = new Employee("Олег", "Семенов", 54, "мужской", "английский", "advanced");
+
+            List<Employee> list_employee = new List<Employee>();
+            list_employee.Add(employee_1);
+            list_employee.Add(employee_2);
+            list_employee.Add(employee_3);
+            list_employee.Add(employee_3);
+            list_employee.Add(employee_4);
+            list_employee.Add(employee_5);
+
+            foreach(var employee in list_employee)
+            {
+                if (employee.LanguageLevel != level.Languages()[0] && employee.LanguageLevel != level.Languages()[1])
+                {
+                    if (employee.Date > 40)
+                    {
+                        Console.WriteLine(employee.Introduce());
+                    }
+                }
+            }
+        }
+    }
+}
