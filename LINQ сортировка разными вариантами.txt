@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LINQ
+{
+    class Person
+    {
+        public string name;
+        public string surname;
+        public int age;
+        public string city;
+
+        public Person(string name, string surname, int age, string city)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.age = age;
+            this.city = city;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Person> users = new List<Person>();
+            users.Add(new Person("Вася", "Васильев", 22, "Киев"));
+            users.Add(new Person("Петя", "Петров", 33, "Львов"));
+            users.Add(new Person("Миша", "Михайлов", 43, "Харьков"));
+            users.Add(new Person("Оля", "Петрова", 22, "Львов"));
+
+            var sort = from userSort in users
+                       where userSort.age < 40
+                       orderby userSort.age
+                       select userSort;
+
+            foreach(Person userSort in sort)
+            {
+                Console.WriteLine(userSort.age);
+            }
+        }
+    }
+}
+
+
+//через метод
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LINQ
+{
+    class Person
+    {
+        public string name;
+        public string surname;
+        public int age;
+        public string city;
+
+        public Person(string name, string surname, int age, string city)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.age = age;
+            this.city = city;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Person> users = new List<Person>();
+            users.Add(new Person("Вася", "Васильев", 22, "Киев"));
+            users.Add(new Person("Петя", "Петров", 33, "Львов"));
+            users.Add(new Person("Миша", "Михайлов", 43, "Харьков"));
+            users.Add(new Person("Оля", "Петрова", 22, "Львов"));
+
+            AgeSort(users);
+        }
+
+        static void AgeSort(List<Person> personSort)
+        {
+            var sort = from ageSort in personSort
+                       orderby ageSort.age
+                       select ageSort;
+
+            foreach(Person ageSort in sort)
+            {
+                Console.WriteLine(ageSort.age);
+            }
+        }
+    }
+}
+
