@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class PeopleData
+    {
+        public string Name;
+        public string Surname;
+        public int Age;
+        public int Salary;
+        public string Gender;
+        public string Language;
+        public string LangLevel;
+
+        public PeopleData(string name, string surname, int age, int salary, string gender, string language, string langLevel)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Salary = salary;
+            Gender = gender;
+            Language = language;
+            LangLevel = langLevel;
+        }
+
+        public PeopleData()
+        {
+            Console.WriteLine();
+        }
+
+        public string Intro() { return $"Имя - {Name}, Фамилия - {Surname}, Возраст - {Age}, Зарплата - {Salary}, Пол - {Gender}, Язык - {Language}, Уровень владения - {LangLevel}"; }
+    }
+
+    class Person
+    {
+        public List<PeopleData> Peoples()
+        {
+            PeopleData people1 = new PeopleData("Иван", "Иванов", 33, 6000, "мужской", "английский", "pre-intermediate");
+            PeopleData people2 = new PeopleData("Елена", "Петрова", 43, 8000, "женский", "немецкий", "advanced");
+            PeopleData people3 = new PeopleData("Евгений", "Сидоров", 30, 10000, "мужской", "итальянский", "upper-intermediate");
+            PeopleData people4 = new PeopleData("Ольга", "Соловьева", 34, 7600, "женский", "испанский", "elementary");
+            PeopleData people5 = new PeopleData("Михаил", "Михайлов", 29, 14000, "мужской", "французкий", "advanced");
+
+            return new List<PeopleData> { people1, people2, people3, people4, people5 };
+        }
+    }
+
+    class Language
+    {
+        public Dictionary<string, PeopleData> choiceLang = new Dictionary<string, PeopleData>();
+
+        public Language()
+        {
+            Person person = new Person();
+            choiceLang.Add("английский", person.Peoples()[0]);
+            choiceLang.Add("немецкий", person.Peoples()[1]);
+            choiceLang.Add("итальянский", person.Peoples()[2]);
+            choiceLang.Add("испанский", person.Peoples()[3]);
+            choiceLang.Add("французкий", person.Peoples()[4]);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            PeopleData peopleData = new PeopleData();
+            Person person = new Person();
+            Language language = new Language();
+
+            while (true)
+            {
+                Console.Write("Выберите язык - ");
+                string lang = Console.ReadLine();
+
+                if(language.choiceLang.TryGetValue(lang.ToLower(), out peopleData) == false)
+                {
+                    Console.WriteLine("Язык не найден");
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine(peopleData.Intro());
+                }
+            }
+        }
+    }
+}

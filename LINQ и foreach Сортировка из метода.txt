@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class PeopleData
+    {
+        public string Name;
+        public string Surname;
+        public int Age;
+        public int Salary;
+        public string Gender;
+        public string Language;
+        public string LangLevel;
+
+        public PeopleData(string name, string surname, int age, int salary, string gender, string language, string langLevel)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Salary = salary;
+            Gender = gender;
+            Language = language;
+            LangLevel = langLevel;
+        }
+
+        public string Intro() { return $"Имя - {Name}\nФамилия - {Surname}\nВозраст - {Age}\nЗарплата - {Salary}\nПол - {Gender}\nЯзык - {Language}\nУровень владения - {LangLevel}"; }
+    }
+
+    class Person
+    {
+        public List<PeopleData> Peoples()
+        {
+            PeopleData people1 = new PeopleData("Иван", "Иванов", 33, 6000, "мужской", "английский", "pre-intermediate");
+            PeopleData people2 = new PeopleData("Елена", "Петрова", 43, 8000, "женский", "английский", "advanced");
+            PeopleData people3 = new PeopleData("Евгений", "Сидоров", 30, 10000, "мужской", "английский", "upper-intermediate");
+            PeopleData people4 = new PeopleData("Ольга", "Соловьева", 34, 7600, "женский", "английский", "elementary");
+            PeopleData people5 = new PeopleData("Михаил", "Михайлов", 29, 14000, "мужской", "французкий", "advanced");
+            PeopleData people6 = new PeopleData("Ярослав", "Орлов", 25, 15000, "мужской", "французкий", "advanced");
+
+            return new List<PeopleData> { people1, people2, people3, people4, people5, people6 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            List<PeopleData> peoples = new List<PeopleData>();
+            peoples.AddRange(person.Peoples());
+
+            Console.WriteLine("Выбор методов сортировки");
+            Console.WriteLine("1. Через foreach\n2. Через LINQ");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    while (true)
+                    {
+                        Console.WriteLine("Выберите язык");
+                        string query = Console.ReadLine();
+                        foreach (var sort in peoples)
+                        {
+                            if (query == sort.Language)
+                            {
+                                Console.WriteLine($"{sort.Intro()}");
+                                Console.WriteLine(new string('-', 30));
+                            }
+                        }
+                        break;
+                    }
+                    break;
+                case "2":
+                    while (true)
+                    {
+                        Console.WriteLine("Выберите язык");
+                        string query = Console.ReadLine();
+                        var sort = from lang in peoples
+                                   where lang.Language == query
+                                   select lang;
+                        foreach(var language in sort)
+                        {
+                            Console.WriteLine(language.Intro());
+                            Console.WriteLine(new string('-', 30));
+                        }
+                        break;
+                    }
+                    break;
+            }
+        }
+    }
+}
