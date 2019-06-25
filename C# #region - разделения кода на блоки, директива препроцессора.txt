@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region hello 
+            /*открываем блок, #region - директива препроцессора*/
+            string hello = "Hello";
+            Show(hello);
+
+            #endregion /*закрываем блок*/
+
+            #region World
+
+            string World = "World";
+            Show(World);
+
+            #endregion
+
+        }
+
+        private static void Show(string name)
+        {
+            Console.WriteLine(name);
+        }
+    }
+}

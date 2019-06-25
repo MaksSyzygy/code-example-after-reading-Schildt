@@ -1,0 +1,114 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Программа математика");
+            Console.WriteLine("1. Показать стандартную таблицу от 1 до 9\n2. Проумножать число\n3. Возвести " +
+                "в квадратный корень число\n4. Извлечь квадратный корень числа\n5. Получить остаток от деления");
+
+            string choice = null;
+
+            while (true)
+            {
+                choice = Console.ReadLine();
+
+                if (choice.Length == 0)
+                {
+                    Console.WriteLine("Строка пустая - введите номер операции!");
+                    continue;
+                }
+                break;
+            }
+
+            switch (choice)
+            {
+                case "1":
+                    Standart(10);
+                    break;
+                case "2":
+                    Console.Write("Выберите число - ");
+                    int choiceNumber = int.Parse(Console.ReadLine());
+                    Standart(choiceNumber);
+                    break;
+                case "3":
+                    Console.Write("Какое число возвести в степень - ");
+                    int target = int.Parse(Console.ReadLine());
+                    Console.Write("В какую степень - ");
+                    int degree = int.Parse(Console.ReadLine());
+                    DegreeNumber(target, degree);
+                    break;
+                case "4":
+                    Console.Write("Из какого числа извлекаем - ");
+                    int squareTarget = int.Parse(Console.ReadLine());
+                    Square(squareTarget);
+                    break;
+                case "5":
+                    Console.Write("От какого числа вычесляем - ");
+                    int moduloTarget = int.Parse(Console.ReadLine());
+                    Console.Write("По какому числу считаем - ");
+                    int moduloNumber = int.Parse(Console.ReadLine());
+                    Modulo(moduloTarget, moduloNumber);
+                    break;
+                default:
+                    Console.WriteLine("Введено число не из списка");
+                    break;
+            }
+
+            void Standart(int number)
+            {
+                if (choice == "1")
+                {
+                    Table(1, number);
+                }
+                else
+                {
+                    Table(number, number + 1);
+                }
+            }
+        }
+
+        private static void Table(int startNumber, int targetNumber)
+        {
+            for (int j = startNumber; j < targetNumber; j++)
+            {
+                for (int i = 1; i < 10; i++)
+                {
+                    int res = 1;
+                    res = j * i;
+                    Console.WriteLine("{0} * {1} = {2}", j, i, res);
+                }
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+
+        private static void DegreeNumber(int targetNumber, int degreeNumber)
+        {
+            double result = Math.Pow(targetNumber, degreeNumber);
+            Console.WriteLine($"Число {targetNumber} в степени {degreeNumber} равно {result}");
+        }
+
+        private static void Square(int squareNumber)
+        {
+            double square = Math.Sqrt(squareNumber);
+            Console.WriteLine($"Квадратный корень из числа {squareNumber} равно {square}");
+        }
+
+        private static void Modulo(int moduloTarget, int moduloNumber)
+        {
+            int result = 0;
+            double modulo = Math.DivRem(moduloTarget, moduloNumber, out result);
+            Console.WriteLine($"Остаток от деления числа {moduloTarget} по модулю {moduloNumber} равен {result}");
+        }
+    }
+}

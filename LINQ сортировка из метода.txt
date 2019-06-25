@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class PeopleData
+    {
+        public string Name;
+        public string Surname;
+        public int Age;
+        public string Gender;
+        public int Salary;
+
+        public PeopleData(string name, string surname, int age, string gender, int salary)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Gender = gender;
+            Salary = salary;
+        }
+
+        public string Intro() { return $"Имя - {Name}, Фамилия - {Surname}, Возраст - {Age}, Пол - {Gender}, Зарплата - {Salary}"; }
+    }
+
+    class People
+    {
+        public List<PeopleData> Peoples()
+        {
+            PeopleData people_1 = new PeopleData("Василий", "Иванов", 45, "Мужской", 7600);
+            PeopleData people_2 = new PeopleData("Елена", "Петрова", 32, "Женский", 4500);
+            PeopleData people_3 = new PeopleData("Петр", "Сидоров", 65, "Мужской", 12500);
+            PeopleData people_4 = new PeopleData("Евгений", "Петросян", 60, "Мужской", 8900);
+            PeopleData people_5 = new PeopleData("Антонина", "Макарова", 70, "Женский", 13700);
+
+            return new List<PeopleData> { people_1, people_2, people_3, people_4, people_5 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            People people = new People();
+            List<PeopleData> peopleDatas = new List<PeopleData>();
+
+            peopleDatas.AddRange(people.Peoples());
+
+            var salarySort = from salary in peopleDatas
+                             orderby salary.Salary
+                             select salary;
+
+            foreach(var salary in salarySort)
+            {
+                Console.WriteLine(salary.Intro());
+            }
+        }
+    }
+}
