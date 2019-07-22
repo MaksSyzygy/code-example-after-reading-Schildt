@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var item = new OrderedDictionary//сохраняется порядок добавления элементов в коллекцию
+            {
+                { "vasia@gmail.com", "Вася, Васильев, 0985554411" },
+                {"petya@ukr.net", "Петр, Петров, 0503698547" },
+                {"lena@mail.ru", "Лена, Орлова, 0567745236" },
+                {"olga@gmail.com", "Ольга, Семенова, 0989996541" }
+            };
+            
+            foreach(DictionaryEntry s in item)
+            {
+                Console.WriteLine(s.Key + " = " + s.Value);
+            }
+        }
+    }
+}

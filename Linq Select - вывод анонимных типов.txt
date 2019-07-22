@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> num = new List<int> { 0, 23, -43, -21, 56, 634, -601, -173, 275, 5, 98, 394, -290 };
+
+            Console.WriteLine("Позиция\tЗначение");
+            foreach (var item in num.Select((x, id) => new { Number = x, ID = id }).Where(x => x.Number % 2 == 0))//x - число, id - порядковый номер. Select принимает вторым аргументом порядковый номер по умолчанию
+            {
+                Console.WriteLine(item.ID.ToString() + "\t" + item.Number.ToString());
+            }
+        }
+    }
+}

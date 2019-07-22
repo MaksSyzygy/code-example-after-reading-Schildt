@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Fish
+    {
+        public string Name;
+        public double Weight;
+
+        public Fish(string name, double weight)
+        {
+            Name = name;
+            Weight = weight;
+        }
+
+        public string Intro() { return $"Вид - {Name}, Вес - {Weight}"; }
+    }
+
+    class FishData
+    {
+        public List<Fish> GetFish()
+        {
+            Fish fish = new Fish("Судак", 15.65);
+            Fish fish1 = new Fish("Судак", 18.75);
+            Fish fish2 = new Fish("Берш", 0.758);
+            Fish fish3 = new Fish("Берш", 0.41);
+            Fish fish4 = new Fish("Берш", 1.056);
+            Fish fish5 = new Fish("Окунь", 1.96);
+            Fish fish6 = new Fish("Окунь", 2.45);
+            Fish fish7 = new Fish("Ерш", 0.14);
+
+            return new List<Fish>() { fish, fish1, fish2, fish3, fish4, fish5, fish6, fish7 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FishData fish = new FishData();
+
+            var dataFish = fish.GetFish().ToLookup(x => x.Name);
+
+            while (true)
+            {
+                Console.Write("Введите рыбу - ");
+                string query = Console.ReadLine();
+
+                var fishQuery = dataFish[query];
+
+                if(dataFish.Contains(query) == false)
+                {
+                    Console.WriteLine("Рыба не найдена");
+                }
+
+                foreach (var nameData in fishQuery)
+                {
+                    Console.WriteLine(nameData.Intro());
+                }
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+    }
+}

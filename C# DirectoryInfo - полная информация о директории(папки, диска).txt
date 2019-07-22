@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var directory = new DirectoryInfo(@"C:\Windows\assembly");
+
+            if (directory.Exists)
+            {
+                Console.WriteLine($"Полное имя: {directory.FullName}");
+                Console.WriteLine($"Имя: {directory.Name}");
+                Console.WriteLine($"Наследуется от: {directory.Parent}");
+                Console.WriteLine($"Время создания: {directory.CreationTime}");
+                Console.WriteLine($"Атрибуты: {directory.Attributes.ToString()}");
+                Console.WriteLine($"Корневой диск: {directory.Root}");
+                Console.WriteLine($"Последний доступ: {directory.LastAccessTime}");
+                Console.WriteLine($"Последние изменения: {directory.LastWriteTime}");
+            }
+            else
+            {
+                Console.WriteLine($"Директория {directory.FullName} не существует");
+            }
+        }
+    }
+}

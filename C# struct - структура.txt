@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    struct Data
+    {
+        private string Name;
+        public int Age;
+
+        public Data(string name, int age)
+        {
+            Name = name;
+            Age = age;
+        }
+
+        public string Intro() { return $"Имя - {Name}, Возраст - {Age}"; }
+    }
+
+    class Person
+    {
+        public List<Data> GetPerson()
+        {
+            Data person1 = new Data("Вася", 33);
+            Data person2 = new Data("Миша", 22);
+            Data person3 = new Data("Даша", 23);
+
+            return new List<Data> { person1, person2, person3 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            List<Data> people = new List<Data>();
+            people.AddRange(person.GetPerson());
+
+            people.Add(new Data("Иван", 45));
+            people.Add(new Data("Петр", 67));
+
+            var sort = from age in people
+                       orderby age.Age
+                       select age;
+
+            foreach(var s in sort)
+            {
+                Console.WriteLine(s.Intro());
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+    }
+}

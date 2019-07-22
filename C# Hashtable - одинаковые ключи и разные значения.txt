@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class Fish
+    {
+        public string Name;
+
+        public Fish(string name)//создаем конструктор для создания рыбы
+        {
+            Name = name;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var dupl = new Hashtable();//объявляем экземпляр Hashtable
+
+            var key1 = new Fish("Карась");//создаем экземпляр ключа типа Fish
+            var key2 = new Fish("Карась");//создаем экземпляр с тем же именем
+
+            dupl[key1] = "3.56 килограмма";//присваиваем значения ключам
+            dupl[key2] = "4.23 килограмма";
+
+            foreach(var s in dupl.Values)//выводим значения словаря Hashtable
+            {
+                Console.WriteLine(s.ToString());
+            }
+        }
+    }
+}

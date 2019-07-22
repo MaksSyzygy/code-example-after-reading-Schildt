@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Coordinate : ICloneable//наследуем интерфейс клонирования
+    {
+        public int X;
+        public int Y;
+
+        public Coordinate(int x, int y)//создаем конструктор
+        {
+            X = x;
+            Y = y;
+        }
+
+        public object Clone()//реализуем интерфейс ICloneable.Clone()
+        {
+            return new Coordinate(X, Y) as object;//передаем новые значения в копию
+        }
+
+        public string Print()
+        {
+            return "X: " + X + " Y: " + Y;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Coordinate first = new Coordinate(100, 50);//главный объект
+            Coordinate second = first.Clone() as Coordinate;//копия объекта
+
+            Console.WriteLine($"{first.Print()}, {second.Print()}");
+
+            second.X = 25;//присваиваем копии свои значения
+            second.Y = 15;
+
+            Console.WriteLine($"{first.Print()}, {second.Print()}");
+        }
+    }
+}

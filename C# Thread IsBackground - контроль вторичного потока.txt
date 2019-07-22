@@ -1,0 +1,40 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void WriteSecond()
+        {
+            while (true)//создаем бесконечный цикл
+            {
+                Console.WriteLine(new string(' ', 15) + "Secondary");
+                Thread.Sleep(500);//задержка в 5 миллисек
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            ThreadStart threadStart = new ThreadStart(WriteSecond);//создаем делегат в который передаем метод
+            Thread thread = new Thread(threadStart);//создаем поток которому передаем делегат
+            thread.Start();//запускаем вторичный поток
+
+            for(int i = 0; i < 10; i++)//запускаем цикл в первичном (основном) потоке
+            {
+                Console.WriteLine("Primary");
+                Thread.Sleep(500);
+            }
+
+            thread.IsBackground = true;//IsBackground -если первичный поток завершил свою работу, вторичный поток прекращает работу
+        }
+    }
+}

@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var sort = new SortedList();//SortedList - сортирует объекты автоматически по признаку
+            sort["B"] = "B";
+            sort["A"] = "A";
+            sort["C"] = "C";
+            sort["E"] = "E";
+            sort["D"] = "D";
+
+            foreach(DictionaryEntry s in sort)//DictionaryEntry - определяет пару ключ/занчения которую можно извлечь
+            {
+                Console.WriteLine($"{s.Key} = {s.Value}");
+            }
+        }
+    }
+}

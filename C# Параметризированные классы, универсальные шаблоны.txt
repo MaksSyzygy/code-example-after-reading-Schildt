@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class MyClass<T>//<T> - является универсальным шаблоном, указатель места заполнения типа
+    {
+        public T field;
+
+        public void Method()
+        {
+            Console.WriteLine(field.GetType());//выводим будущий тип переменной
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyClass<int> myInt = new MyClass<int>();//подставляем на место шаблона пользовательский тип
+            myInt.Method();
+
+            MyClass<double> myDouble = new MyClass<double>();
+            myDouble.Method();
+        }
+    }
+}

@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var query = from x in Enumerable.Range(1, 9)//Range - создает последовательность чисел в указанном диапазон
+                        from y in Enumerable.Range(1, 10)
+                        select new
+                        {
+                            X = x,
+                            Y = y,
+                            Result = x * y
+                        };
+
+            foreach(var item in query)
+            {
+                Console.WriteLine($"{item.X} * {item.Y} = {item.Result}");
+                if(item.Y >= 10)
+                {
+                    Console.WriteLine(new string('-', 30));
+                }
+            }
+        }
+    }
+}

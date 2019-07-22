@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            SortedDictionary<string, string> fish = new SortedDictionary<string, string>();
+            fish.Add("Карась", "4,56 кило");
+            fish.Add("Омуль", "3,85 кило");
+            fish.Add("Щука", "9,47 кило");
+            fish.Add("Карп", "5,48 кило");
+            fish.Add("Амур", "6,93 кило");
+            fish.Add("Толстолоб", "10,58 кило");
+            fish.Add("Окунь", "3,65 кило");
+
+            foreach(var s in fish)
+            {
+                Console.WriteLine(s.Key);
+            }
+        }
+    }
+}

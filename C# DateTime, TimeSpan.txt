@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DateTime newYear = new DateTime(2020, 1, 1);// new DateTime - устанавливаем интересующую дату
+            DateTime today = DateTime.Now;//устанавливаем текущую дату
+            TimeSpan newYearLeft = newYear - today;//вычисляем разницу
+
+            Console.WriteLine($"До Нового Года осталось - {newYearLeft.Days} дней");//в днях
+            Console.WriteLine($"До Нового Года осталось - {newYearLeft.TotalHours} часов");//в часах
+
+            DateTime birthday = new DateTime(2019, 9, 10);
+            TimeSpan birthdayLeft = birthday - today;
+
+            Console.WriteLine($"До Дня Рождения осталось {birthdayLeft.Days} дней");
+            Console.WriteLine($"До Дня Рождения осталось {birthdayLeft.TotalHours} часов");
+        }
+    }
+}
+
+//другой пример
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DateTime lastTime = new DateTime(2019, 5, 10);
+            DateTime newLastTime = new DateTime(2019, 8, 20);
+            DateTime today = DateTime.Now;
+
+            TimeSpan deathLine = newLastTime - today;
+
+            if(newLastTime < today)
+            {
+                Console.WriteLine("Сроки просрочены");
+            }
+            else
+            {
+                Console.WriteLine($"Ещё осталось {deathLine.TotalDays} дней");
+            }
+        }
+    }
+}

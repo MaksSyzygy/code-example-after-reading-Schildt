@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LinqWF
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LinqPeopleDataContext context = new LinqPeopleDataContext();//создаем экземпл€р Ѕƒ
+
+            IEnumerable<People> mens = from sort in context.People
+                                       where sort.Gender == "женский"
+                                       select sort;
+
+            dataGridView1.DataSource = mens;//выводим в dataGridView1
+        }
+    }
+}
+
+
+//расшир€ющим методом
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LinqWF
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LinqPeopleDataContext context = new LinqPeopleDataContext();//создаем экземпл€р Ѕƒ
+
+            IEnumerable<People> mens = context.People.Where(x => x.Gender == "мужской");
+
+            dataGridView1.DataSource = mens;//выводим в dataGridView1
+        }
+    }
+}

@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    struct Digit
+    {
+        public byte Value;//создаем пеле byte Value
+
+        Digit(byte value)//создаем конструктор
+        {
+            Value = value;
+        }
+
+        public static explicit operator Digit(byte argument)//explicit operator - оператор явного преобразования типов. В скобках параметр для преобразования
+        {
+            Digit digit = new Digit(argument);//реализуем конструктор
+            return digit;
+        }
+
+        public string Print()
+        {
+            return Value.ToString();
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            byte num = 1;
+
+            Digit digit = (Digit)num;//инициализируем
+            Console.WriteLine(digit.Print());
+            Console.WriteLine(digit.GetType());
+        }
+    }
+}
+
+
+
+//Исключения
+
+//Исходный или целевой тип преобразования должен относиться к классу, для которого объявлено данное преобразование. В частности, нельзя переопределить преобразование в тип int, если оно первоначально указано как преобразование в тип double.
+
+//Нельзя указывать преобразование в класс object или же из этого класса.
+
+//Для одних и тех же исходных и целевых типов данных нельзя указывать одновременно явное и неявное преобразование.
+
+//Нельзя указывать преобразование базового класса в производный класс.
+
+//Нельзя указывать преобразование в интерфейс или же из него.

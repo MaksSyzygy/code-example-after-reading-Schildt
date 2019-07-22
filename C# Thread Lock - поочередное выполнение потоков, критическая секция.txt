@@ -1,0 +1,52 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class MyClass
+    {
+        //object block - объект синхронизации доступа
+        object block = new object();//создаем флаг перехода между итерациями процессов
+
+        public void Method()
+        {
+            int hash = Thread.CurrentThread.GetHashCode();//получаем № хеш-кода процесса
+
+            //создается критическая секция - это участок кода в котором проводится попытка доступа к разделяемому ресурсу
+            lock (block)//конструкция lock позволяет выдерживать очередь между процессами и при помощи флага распределять поочередное выполнение
+            {
+                for(int counter = 0; counter < 10; counter++)//выполняем процесс
+                {
+                    Console.WriteLine("Поток №{0}: шаг {1}", hash, counter);
+                    Thread.Sleep(100);
+                }
+                Console.WriteLine(new string('-', 20));
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.SetWindowSize(80, 40);//задаем размер окна консоли
+
+            MyClass myClass = new MyClass();
+
+            for(int i = 0; i < 3; i++)//создаем 3 итерации процесса
+            {
+                new Thread(myClass.Method).Start();//создаем выполнение потоков
+            }
+
+            Thread.Sleep(500);
+        }
+    }
+}

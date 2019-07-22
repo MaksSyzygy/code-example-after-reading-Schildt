@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                try
+                {
+                    var fish = new NameValueCollection
+                {
+                    {"Карась", "4,56 кило" },
+                    {"Карась", "3,85 кило" },
+                    { "Щука", "9,47 кило"},
+                    { "Карп", "5,48 кило"},
+                    { "Карп", "6,93 кило"},
+                    { "Щука", "10,58 кило"},
+                    { "Окунь", "3,65 кило"}
+                };
+
+                    Console.Write("Введите имя рыбы - ");
+                    string name = Console.ReadLine();
+                    Console.WriteLine();
+
+                    foreach (var s in fish.GetValues(name))
+                    {
+                        Console.WriteLine($"{name} = {s}");
+                    }
+                    Console.WriteLine(new string('-', 30));
+                }
+                catch
+                {
+                    Console.WriteLine("Такой рыбы нет");
+                }
+            }
+        }
+    }
+}

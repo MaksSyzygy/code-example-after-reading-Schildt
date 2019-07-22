@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var directory = new DirectoryInfo(@"C:\Users\Максим\Desktop\литература программирование\пример");
+
+            if (directory.Exists)
+            {
+                Console.WriteLine($"Полное имя: {directory.FullName}");
+                Console.WriteLine($"Имя: {directory.Name}");
+                Console.WriteLine($"Наследуется от: {directory.Parent}");
+                Console.WriteLine($"Время создания: {directory.CreationTime}");
+                Console.WriteLine($"Атрибуты: {directory.Attributes.ToString()}");
+                Console.WriteLine($"Корневой диск: {directory.Root}");
+                Console.WriteLine($"Последний доступ: {directory.LastAccessTime}");
+                Console.WriteLine($"Последние изменения: {directory.LastWriteTime}");
+
+                FileInfo[] infos = directory.GetFiles("*.txt");//Информация о конкретном типе файла
+                Console.WriteLine(new string('-', 40));
+
+                Console.WriteLine($"Найдено {infos.Length} файлов с расширением txt");
+                Console.WriteLine(new string('-', 40));
+
+                foreach(var info in infos)
+                {
+                    Console.WriteLine($"Имя: {info.Name}");
+                    Console.WriteLine($"Размер файла: {info.Length}");
+                    Console.WriteLine($"Время создания: {info.CreationTime}");
+                    Console.WriteLine($"Последний доступ: {info.LastAccessTime}");
+                    Console.WriteLine($"Последние изменения: {info.LastWriteTime}");
+                    Console.WriteLine(new string('-', 40));
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Директория {directory.FullName} не существует");
+            }
+        }
+    }
+}

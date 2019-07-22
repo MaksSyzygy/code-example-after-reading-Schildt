@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> country = new List<string> { "Украина", "Голландия", "США", "Кюрасао", "Австралия" };
+
+            var countryFormat = country.OrderBy(x => x).Aggregate((a, b) => a + ", " + b);//Aggregate - аналог string.Format и конкатенации строк
+
+            Console.WriteLine(countryFormat);
+        }
+    }
+}

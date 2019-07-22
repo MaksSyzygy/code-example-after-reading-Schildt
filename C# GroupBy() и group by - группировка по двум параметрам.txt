@@ -1,0 +1,175 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class PeopleData
+    {
+        public string Name;
+        public string Surname;
+        public int Age;
+        public int Salary;
+        public string Gender;
+        public string Language;
+        public string LangLevel;
+
+        public PeopleData(string name, string surname, int age, int salary, string gender, string language, string langLevel)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Salary = salary;
+            Gender = gender;
+            Language = language;
+            LangLevel = langLevel;
+        }
+
+        public string Intro() { return $"Имя - {Name}\nФамилия - {Surname}\nВозраст - {Age}\nЗарплата - {Salary}\nПол - {Gender}\nЯзык - {Language}\nУровень владения - {LangLevel}"; }
+    }
+
+    class Person
+    {
+        public List<PeopleData> Peoples()
+        {
+            PeopleData people1 = new PeopleData("Иван", "Иванов", 33, 6000, "мужской", "английский", "upper-intermediate");
+            PeopleData people2 = new PeopleData("Елена", "Петрова", 43, 8000, "женский", "английский", "advanced");
+            PeopleData people3 = new PeopleData("Евгений", "Сидоров", 30, 10000, "мужской", "английский", "upper-intermediate");
+            PeopleData people4 = new PeopleData("Ольга", "Соловьева", 34, 7600, "женский", "английский", "advanced");
+            PeopleData people5 = new PeopleData("Михаил", "Михайлов", 29, 14000, "мужской", "французкий", "advanced");
+            PeopleData people6 = new PeopleData("Ярослав", "Орлов", 25, 15000, "мужской", "французкий", "Intermediate");
+            PeopleData people7 = new PeopleData("Борис", "Степанов", 53, 12000, "мужской", "немецкий", "advanced");
+            PeopleData people8 = new PeopleData("Юрий", "Бойко", 32, 22000, "мужской", "немецкий", "advanced");
+            PeopleData people9 = new PeopleData("Юлия", "Ковалева", 33, 12000, "женский", "испанский", "upper-intermediate");
+            PeopleData people10 = new PeopleData("Светлана", "Соловьева", 42, 9000, "женский", "итальянский", "pre-intermediate");
+
+            return new List<PeopleData> { people1, people2, people3, people4, people5, people6, people7, people8, people9, people10 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            List<PeopleData> peoples = new List<PeopleData>();
+            peoples.AddRange(person.Peoples());//запихиваем списки в List
+
+            var sort = peoples.GroupBy(x => new { x.Language, x.LangLevel }).Select(x => new { Lang = x.Key.Language, Lvl = x.Key.LangLevel, Employee = x.Select(a=>a.Intro()) });//устанавливаем группировку по двум признакам (x.Language, x.LangLevel), получаем ключи (Lang = x.Key.Language) и анонимный тип для вывода полной инфо Employee = x.Select(a=>a.Intro())
+
+            foreach (var group in sort)
+            {
+                Console.WriteLine("Язык {0}, Уровень {1}", group.Lang, group.Lvl);
+                Console.WriteLine();
+
+                foreach(var empl in group.Employee)
+                {
+                    Console.WriteLine($"{empl}");
+                    Console.WriteLine();
+                }
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+    }
+}
+
+
+
+//через переменную запроса
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class PeopleData
+    {
+        public string Name;
+        public string Surname;
+        public int Age;
+        public int Salary;
+        public string Gender;
+        public string Language;
+        public string LangLevel;
+
+        public PeopleData(string name, string surname, int age, int salary, string gender, string language, string langLevel)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Salary = salary;
+            Gender = gender;
+            Language = language;
+            LangLevel = langLevel;
+        }
+
+        public string Intro() { return $"Имя - {Name}\nФамилия - {Surname}\nВозраст - {Age}\nЗарплата - {Salary}\nПол - {Gender}\nЯзык - {Language}\nУровень владения - {LangLevel}"; }
+    }
+
+    class Person
+    {
+        public List<PeopleData> Peoples()
+        {
+            PeopleData people1 = new PeopleData("Иван", "Иванов", 33, 6000, "мужской", "английский", "upper-intermediate");
+            PeopleData people2 = new PeopleData("Елена", "Петрова", 43, 8000, "женский", "английский", "advanced");
+            PeopleData people3 = new PeopleData("Евгений", "Сидоров", 30, 10000, "мужской", "английский", "upper-intermediate");
+            PeopleData people4 = new PeopleData("Ольга", "Соловьева", 34, 7600, "женский", "английский", "advanced");
+            PeopleData people5 = new PeopleData("Михаил", "Михайлов", 29, 14000, "мужской", "французкий", "advanced");
+            PeopleData people6 = new PeopleData("Ярослав", "Орлов", 25, 15000, "мужской", "французкий", "Intermediate");
+            PeopleData people7 = new PeopleData("Борис", "Степанов", 53, 12000, "мужской", "немецкий", "advanced");
+            PeopleData people8 = new PeopleData("Юрий", "Бойко", 32, 22000, "мужской", "немецкий", "advanced");
+            PeopleData people9 = new PeopleData("Юлия", "Ковалева", 33, 12000, "женский", "испанский", "upper-intermediate");
+            PeopleData people10 = new PeopleData("Светлана", "Соловьева", 42, 9000, "женский", "итальянский", "pre-intermediate");
+
+            return new List<PeopleData> { people1, people2, people3, people4, people5, people6, people7, people8, people9, people10 };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            List<PeopleData> peoples = new List<PeopleData>();
+            peoples.AddRange(person.Peoples());//запихиваем списки в List
+
+            var query = from sort in peoples
+                        group sort by new
+                        {
+                            Lang = sort.Language,//создаем два анонимных типа в которые присваиваем два параметра группировки
+                            Lvl = sort.LangLevel
+                        } into grouping//into - указывает на новую переменную диапазона grouping в котором содержаться анонимные типы
+
+                        select new
+                        {
+                            grouping.Key.Lang,//выбираем наши параметры группировки
+                            grouping.Key.Lvl,
+                            Intro = grouping.Select(x=>x.Intro())//анонимный тип для вывода информации из метода через метод расширения Select
+                        };
+
+            foreach(var lang in query)
+            {
+                Console.WriteLine($"Язык - {lang.Lang}, Уровень - {lang.Lvl}");
+                Console.WriteLine();
+                foreach(var intro in lang.Intro)
+                {
+                    Console.WriteLine($"Сотрудник\n{intro}");
+                    Console.WriteLine();
+                }
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+    }
+}

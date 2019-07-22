@@ -1,0 +1,31 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ArrayList arrayList = new ArrayList();//создаем хранилище для разнотипных переменных
+            arrayList.Add("собака");//string
+            arrayList.Add(123);//int
+            arrayList.Add('r');//char
+
+            foreach(var s in arrayList)
+            {
+                Console.WriteLine(s.ToString());
+            }
+        }
+    }
+}
+
+//не использовать, поскольку arrayList использвует технологию boxing(упаковки), что снижает производительность
+//использовать List<> предпочтительнее

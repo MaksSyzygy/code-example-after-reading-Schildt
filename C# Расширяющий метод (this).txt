@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    static class Method//расшир€ющий метод может быть создан “ќЋ№ ќ в статическом классе
+    {
+        public static void MethodClass(this string value)//this сообщает, что это расшир€ющий метод
+        {
+            Console.WriteLine(value);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = "Hello World";//объ€вл€ем переменную
+            text.MethodClass();//вызываем на переменной метод из статического класса и выводим переменную
+        }
+    }
+}

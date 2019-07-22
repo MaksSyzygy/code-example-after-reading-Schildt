@@ -1,0 +1,57 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    public delegate void EventDelegate();//создаем делегат
+
+    class MyClass
+    {
+        EventDelegate myEvent = null;//присваиваем значение null для дальнейшего наполнения
+
+        public event EventDelegate MyEvent//реализация методов доступа к событиям
+        {
+            add { myEvent += value; }//add - добавляет подписку на событие
+            remove { myEvent -= value; }//remove - открепляет подписку на событие
+        }
+
+        public void InvokeEvent()//метод вызывающий событие
+        {
+            myEvent.Invoke();
+        }
+    }
+
+    class Program
+    {
+        static private void Hand1()
+        {
+            Console.WriteLine("Событие 1");
+        }
+
+        static private void Hand2()
+        {
+            Console.WriteLine("Событие 2");
+        }
+
+        static void Main(string[] args)
+        {
+            MyClass instance = new MyClass();
+            instance.MyEvent += Hand1;//подписка на событие
+            instance.MyEvent += Hand2;
+
+            instance.InvokeEvent();//вызываем событие
+
+            Console.WriteLine(new string('-', 30));
+
+            instance.MyEvent -= Hand2;//открыпляем событие
+            instance.InvokeEvent();
+        }
+    }
+}

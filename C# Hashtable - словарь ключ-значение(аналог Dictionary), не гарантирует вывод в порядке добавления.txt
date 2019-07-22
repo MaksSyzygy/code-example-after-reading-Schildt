@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var email = new Hashtable();//Hashtable - аналог Dictionary, представляет пару ключ/значение
+
+            email.Add("vasia@gmail.com", "Вася, Васильев, 0985554411");//Add добавляет значение в таблицу - ключ/значение
+            email.Add("petya@ukr.net", "Петр, Петров, 0503698547");
+            email.Add("lena@mail.ru", "Лена, Орлова, 0567745236");
+
+            email["olga@gmail.com"] = "Ольга, Семенова, 0989996541";//также добавлять можно через индексатор - в скобках ключ = значение
+
+            email["olga@gmail.com"] = "Ольга, Ветрова, 0674125285";//если ключ существует, то производится замена значения
+
+            Console.WriteLine("Значения\n");
+            foreach(var s in email.Values)//Values - показывает значение
+            {
+                Console.WriteLine(s.ToString());
+            }
+
+            Console.WriteLine(new string('-', 30));
+
+            Console.WriteLine("Ключи\n");
+            foreach (var s in email.Keys)//Keys - выводит ключи
+            {
+                Console.WriteLine(s.ToString());
+            }
+        }
+    }
+}

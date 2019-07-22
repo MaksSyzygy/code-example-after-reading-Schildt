@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class EmployeeID
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string Language { get; set; }
+
+        public string Intro() { return $"Имя - {Name}"; }
+    }
+
+    class EmployeeNational
+    {
+        public string ID { get; set; }
+        public string National { get; set; }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var Employees = new List<EmployeeID>
+            {
+                new EmployeeID { ID = "111", Name="Alex Alexeev", Language = "English" },
+                new EmployeeID { ID="222", Name="Petr Petrov", Language = "French" },
+                new EmployeeID { ID="333", Name="Ivan Ivanov", Language = "English" },
+                new EmployeeID { ID = "222", Name = "Stepan Stepanov", Language = "Deutch"}
+            };
+
+            var empNational = new List<EmployeeNational>
+            {
+                new EmployeeNational { ID="111", National = "Russian"},
+                new EmployeeNational { ID="222", National = "Ukrainian"},
+                new EmployeeNational { ID="333", National = "American"}
+            };
+
+            var query = from lang in Employees
+                        group lang by lang.Language;//group - группирует по типу, by - выводит значения типов
+
+            foreach(var group in query)
+            {
+                Console.WriteLine("Группа {0} == {0}", group.Key);//Key - возвращает ключ IGrouping, по которому ранее group сгруппировал типы
+                foreach(var number in group)//выводим значения by из group
+                {
+                    Console.WriteLine("{0}, ", number.Intro());
+                }
+                Console.WriteLine(new string('-', 30));
+            }
+        }
+    }
+}

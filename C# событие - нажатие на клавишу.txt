@@ -1,0 +1,81 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    public delegate void EventDelegate();
+
+    class PressKey
+    {
+        public event EventDelegate PressAKey = null;
+        public event EventDelegate PressBKey = null;
+
+        public void EventPressA()
+        {
+            if(PressAKey != null)
+            {
+                PressAKey.Invoke();
+            }
+        }
+
+        public void EventPressB()
+        {
+            if (PressBKey != null)
+            {
+                PressBKey.Invoke();
+            }
+        }
+
+        public void Start()
+        {
+            while (true)
+            {
+                string s = Console.ReadLine();
+
+                switch (s)
+                {
+                    case "a":
+                    case "A":
+                        PressAKey.Invoke();
+                        break;
+                    case "b":
+                    case "B":
+                        PressBKey.Invoke();
+                        break;
+                    default:
+                        Console.WriteLine("Введен не параметризированный символ");
+                        break;
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static private void PressAHandler()
+        {
+            Console.WriteLine("Нажата клавиша А");
+        }
+
+        static private void PressBHandler()
+        {
+            Console.WriteLine("Нажата клавиша Б");
+        }
+
+        static void Main(string[] args)
+        {
+            PressKey press = new PressKey();
+            press.PressAKey += PressAHandler;
+            press.PressBKey += PressBHandler;
+
+            press.Start();
+        }
+    }
+}

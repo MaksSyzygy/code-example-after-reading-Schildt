@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> num = new List<int> { 0, 23, -43, -21, 56, 634, -601, -173, 275, 5, 98, 394, -290 };
+
+            Console.WriteLine($"Максимальное число {num.Max()}");
+            Console.WriteLine($"Минимальное число {num.Min()}");
+            Console.WriteLine($"Сумма положительных чисел {num.Where(x => x > 0).Sum()}");
+            Console.WriteLine($"Сумма отрицательных чисел {num.Where(x => x < 0).Sum()}");
+            Console.WriteLine($"Количество положительных чисел {num.Count(x => x > 0)}");
+            Console.WriteLine($"Количество отрицательных чисел {num.Count(x => x < 0)}");
+            Console.WriteLine($"Количество элементов массива {num.Count()}");
+        }
+    }
+}

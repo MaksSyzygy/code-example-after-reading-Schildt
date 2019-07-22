@@ -1,0 +1,168 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void WriteSecond()
+        {
+            while (true)
+            {
+                Console.WriteLine(new string(' ', 10) + "Secondary");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            ThreadStart threadStart = new ThreadStart(WriteSecond);//создаем класс-делегат дл€ создани€ нового потока. ¬ качестве параметра используем метод
+            Thread thread = new Thread(threadStart);//Thread - создаем отдельный поток
+
+            thread.Start();//запускаем поток
+
+            while (true)
+            {
+                Console.WriteLine("Primary");
+            }
+        }
+    }
+}
+
+
+//
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void WriteSecond()
+        {
+            int counter = 0;
+            while (counter < 10)
+            {
+                Thread.Sleep(500);//Sleep - приостанавливает работу потока на N миллисекунд
+                Console.WriteLine("Thread ID {0}, counter = {1}", Thread.CurrentThread.GetHashCode(), counter);
+                counter++;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Thread thread = new Thread(WriteSecond);//Thread - создаем отдельный поток
+            thread.Start();//запускаем поток
+
+            WriteSecond();//¬ результате выполн€етс€ работа с одним экземпл€ром в разных потоках
+            //Thread ID показывает CurrentThread - выполн€ющийс€ в данный момент поток
+        }
+    }
+}
+
+
+
+//
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void WriteSecond()
+        {
+            Thread secondThread = Thread.CurrentThread;//создаем экземпл€р вторичного потока присваива€ ему текущий поток
+            secondThread.Name = "Secondary";//даем потоку им€
+
+            Console.WriteLine("ID потока {0}: {1}", secondThread.Name, secondThread.GetHashCode());//выводим им€ и хэш-код потока
+
+            for(int counter = 0; counter < 10; counter++)//запускаем цикл на вывод имени потока
+            {
+                Console.WriteLine(new string(' ', 15) + secondThread.Name + " " + counter);
+                Thread.Sleep(1000);//тайм-аут на 1 сек
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Thread primaryThread = Thread.CurrentThread;//создаем первичный поток
+            primaryThread.Name = "Primary";//присваиваем им€
+
+            Console.WriteLine("ID потока {0}: {1}", primaryThread.Name, primaryThread.GetHashCode());
+
+            Thread secondaryThread = new Thread(WriteSecond);//создаем экземпл€р вторичного потока присваива€ ему метод содержащий вторичный поток
+            secondaryThread.Start();//запускаем вторичный поток
+
+            for(int counter = 0; counter < 10; counter++)//запускаем в цикле первичный поток
+            {
+                Console.WriteLine(primaryThread.Name + " " + counter);
+                Thread.Sleep(1500);//даем тайм-аут в 1.5 сек
+            }
+        }
+    }
+}
+
+//
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void WriteSecond(object obj)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(obj);
+                Thread.Sleep(1000);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WriteSecond);//создаем делегат параметризированного потока который принимает тип object
+            Thread thread = new Thread(threadStart);//создаем экземпл€р потока и передаем экземпл€р делегата в поток
+            thread.Start("«дарова");//передаем значение в параметризированный поток
+
+            Thread.Sleep(500);
+        }
+    }
+}

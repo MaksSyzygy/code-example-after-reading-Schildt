@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class MyClass : IEnumerable, IEnumerator//реализуем интерфейсы перечеслителя и перебора
+    {
+        public int[] Num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };//объявляем динамические переменные
+
+        int index = -1;
+
+        public IEnumerator GetEnumerator()//получаем нумератор
+        {
+            return this;//возвращаем значения перечислителя
+        }
+
+        public bool MoveNext()//двигаем индекс по коллекции
+        {
+            if (index == Num.Length - 1)
+            {
+                Reset();
+                return false;
+            }
+
+            index++;
+            return true;
+        }
+
+        public void Reset()//перемещаем индекс в начало коллекции
+        {
+            index = -1;
+        }
+
+        public object Current//получаем текущее месторасположение индекса
+        {
+            get { return Num[index]; }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyClass myClass = new MyClass();
+
+            foreach(var s in myClass)
+            {
+                Console.WriteLine(s);
+            }
+        }
+    }
+}

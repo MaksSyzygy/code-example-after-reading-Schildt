@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections.ObjectModel;//для подсключения Collection
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> country = new List<string> { "Украина", "Голландия", "США", "Кюрасао", "Австралия", "Германия", "Швеция" };
+
+            Console.WriteLine("Метод Take");
+            IEnumerable<string> Take = country.Take(2);//Take - возвращает N элементов с начала коллекции
+            foreach(var s in Take)
+            {
+                Console.WriteLine(s.ToString());
+            }
+            Console.WriteLine(new string('-', 30));
+
+            Console.WriteLine("Метод Skip");
+            IEnumerable<string> Skip = country.Skip(2);//Skip - пропускает N элементов с начала коллекции
+            foreach (var s in Skip)
+            {
+                Console.WriteLine(s.ToString());
+            }
+            Console.WriteLine(new string('-', 30));
+
+            Console.WriteLine("Метод Reverse");
+            
+            //Reverse - показывает список с конца
+            foreach(var s in country.AsQueryable().Reverse())//AsQueryable - преобразует универсальный IEnumerator
+            {
+                Console.WriteLine(s);
+            }
+        }
+    }
+}

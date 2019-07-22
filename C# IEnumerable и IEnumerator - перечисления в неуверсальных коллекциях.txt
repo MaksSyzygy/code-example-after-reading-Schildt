@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class MyClass : IEnumerable//реализуем интерфейс IEnymerable
+    {
+        public IEnumerator GetEnumerator()//реализуем перечеслитель IEnumerator
+        {
+            string[] name = { "Вася", "Петя", "Маша" };
+            return name.GetEnumerator();//метод GetEnumerator возвращает перечислитель для неуверсальной коллекции
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyClass myClass = new MyClass();
+
+            foreach(var s in myClass)
+            {
+                Console.WriteLine(s.ToString());
+            }
+        }
+    }
+}
+
+
+
+
+/////////
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Threading;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            IEnumerator numEnumerator = num.GetEnumerator();//вкладываем в экземпляр IEnumerator массив
+
+            while (numEnumerator.MoveNext())//пока num.Lenght = true, MoveNext = true
+            {
+                int item = (int)numEnumerator.Current;//приводим к типу int
+                Console.WriteLine(item);//выводим
+            }
+            numEnumerator.Reset();//сбрасываем
+        }
+    }
+}

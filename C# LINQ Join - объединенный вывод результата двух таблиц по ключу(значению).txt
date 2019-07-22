@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class EmployeeID
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+    }
+
+    class EmployeeNational
+    {
+        public string ID { get; set; }
+        public string National { get; set; }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var Employees = new List<EmployeeID>
+            {
+                new EmployeeID { ID = "111", Name="Alex Alexeev" },//ID отыгрывает роль ключа между двумя коллекциями
+                new EmployeeID { ID="222", Name="Petr Petrov" },
+                new EmployeeID { ID="333", Name="Ivan Ivanov" },
+                new EmployeeID { ID = "222", Name = "Stepan Stepanov"}
+            };
+
+            var empNational = new List<EmployeeNational>
+            {
+                new EmployeeNational { ID="111", National = "Russian"},
+                new EmployeeNational { ID="222", National = "Ukrainian"},
+                new EmployeeNational { ID="333", National = "American"}
+            };
+
+            var query = from emp in Employees//берем сотрудников
+                        join nation in empNational//объединяем две коллекции
+                        on emp.ID equals nation.ID//на основе ID. Для объединения должны быть идентификаторы объединения по признаку
+                        orderby nation.National descending//сортируем по убыванию
+                        select new//создаем анонимные типы
+                        {
+                            Id = emp.ID,
+                            Name = emp.Name,
+                            National = nation.National
+                        };
+            foreach(var s in query)
+            {
+                Console.WriteLine($"ID - {s.Id}, Имя - {s.Name}, Национальность - {s.National}");
+            }
+        }
+    }
+}

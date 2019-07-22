@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    class MyClass1<T>where T : class//where - указываем какого типа должно быть значение. Class - ссылочный тип
+    {
+        public T variable;
+    }
+
+    class MyClass2<T>where T : struct//Struct - структурный тип
+    {
+        public T variable2;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyClass1<string> class1 = new MyClass1<string>();//указываем типы по их принадлежности. Int - структурный тип
+            MyClass2<int> class2 = new MyClass2<int>();//string - ссылочный тип
+        }
+    }
+}

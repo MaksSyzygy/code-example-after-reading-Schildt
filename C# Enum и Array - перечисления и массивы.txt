@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+
+namespace ADO
+{
+    enum Month
+    {
+        Январь = 1,//устанавливаем индекс с какого идет перечесление. По дефолту с нуля (0)
+        Февраль,
+        Март,
+        Апрель,
+        Май,
+        Июнь,
+        Июль,
+        Август,
+        Сентябрь,
+        Октябрь,
+        Ноябрь,
+        Декабрь
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Array monthArray = Enum.GetValues(typeof(Month));
+
+            Console.WriteLine("В году {0} месяцев", monthArray.Length);
+
+            for(int i = 0; i < monthArray.Length; i++)
+            {
+                Console.WriteLine("Имя месяца года - {0}, его номер в году - {0:D}", monthArray.GetValue(i));
+            }
+        }
+    }
+}

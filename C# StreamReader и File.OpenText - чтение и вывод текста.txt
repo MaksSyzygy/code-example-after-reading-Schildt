@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //создаем файл и устанавливаем условия
+            var file = new FileStream(@"D:\Test\test2.txt", FileMode.Create, FileAccess.ReadWrite);
+
+            //создаем поток на запись с указанием куда записывать и в каком формате
+            var writer = new StreamWriter(file, Encoding.UTF8);
+
+            //WriteLine - записываем строки
+            writer.WriteLine("Первая строка");
+            writer.WriteLine("Вторая строка");
+
+            writer.Write(writer.NewLine);//NewLine - переход на новую строку
+
+            writer.WriteLine("Третья строка числа:");
+
+            for(int i=0; i < 10; i++)
+            {
+                writer.Write(i + " ");//Write - записывает в поток строку
+            }
+
+            writer.Close();//закрываем поток StreamWriter
+
+            Console.WriteLine("Файл создан и в него записан текст");
+
+            Console.WriteLine("Содержимое файла test2.txt");
+
+            //StreamReader - считывание данных из файла
+            StreamReader reader = File.OpenText(@"D:\Test\test2.txt");//File.OpenText - указываем из какого файла считать текст
+            string input;
+
+            while((input = reader.ReadLine()) != null)//пока StreamReader не пустой, считываем данные
+            {
+                Console.WriteLine(input.ToString());
+            }
+
+            reader.Close();//закрываем StreamReader
+        }
+    }
+}

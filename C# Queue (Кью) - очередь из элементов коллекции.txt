@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var query = new Queue();//Метод Кью - создает очерьдь из елементов
+            query.Enqueue(123);//Enqueue - помещаем элементы в очередь(Аналог Add)
+            query.Enqueue("Hello");
+            query.Enqueue('r');
+
+            Console.WriteLine(query.Dequeue());//Декью - выводит только первый элемент из очереди и удаляет его при последующем вызове очереди
+            Console.WriteLine(new string('-', 30));
+
+            foreach(var s in query)
+            {
+                Console.WriteLine(s.ToString());//после вызова Декью будут показаны только два последних элемента
+            }
+        }
+    }
+}
+
+
+////Метод Peek
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var query = new Queue();//Метод Кью - создает очерьдь из елементов
+            query.Enqueue(123);//Enqueue - помещаем элементы в очередь(Аналог Add)
+            query.Enqueue("Hello");
+            query.Enqueue('r');
+
+            Console.WriteLine(query.Peek());//Пик - выводит только первый элемент из очереди и НЕ удаляет его при последующем вызове очереди
+            Console.WriteLine(new string('-', 30));
+
+            foreach(var s in query)
+            {
+                Console.WriteLine(s.ToString());//после вызова Peek все-равно будут показаны все элементы списка
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var memory = new MemoryStream();//создаем область памяти на управляемой куче
+
+            memory.Capacity = 256;//устанавливаем размер памяти
+
+            for(var i = 0; i < 256; i++)
+            {
+                memory.WriteByte((byte)i);//записываем данные
+            }
+
+            memory.Position = 0;//устанавливаем позицию
+
+            for(int i = 0; i < 256; i++)
+            {
+                Console.WriteLine(" " + memory.ReadByte());//считываем данные
+            }
+
+            Console.WriteLine("\n" + new string('-', 80));
+
+            byte[] array = memory.ToArray();//записываем данные из кучи в массив
+
+            foreach(var b in array)
+            {
+                Console.WriteLine(b);//считываем массив
+            }
+
+            Console.WriteLine("\n" + new string('-', 80));
+
+            var file = new FileStream(@"D:\Test\Test2.txt", FileMode.Create, FileAccess.ReadWrite);
+
+            memory.WriteTo(file);//записываем содержимое потока памяти по указанному направлению
+
+            file.Position = 0;
+            
+            for(int i = 0; i < 256; i++)
+            {
+                Console.WriteLine(" " + file.ReadByte());
+            }
+
+            memory.Close();
+            file.Close();
+        }
+    }
+}

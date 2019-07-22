@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+
+namespace ADO
+{
+    public static class StringExeptions
+    {
+        public static string ChangeFirstLetterCase(this string str)//!!!this - указывает, что методо можно использовать как расширяющий метод
+            //и вызывать его с другими стандартными методами
+        {
+            char[] arr = str.ToCharArray();
+
+            arr[0] = char.IsUpper(arr[0]) ? char.ToLower(arr[0]) : char.ToUpper(arr[0]);//isUpper - проверяет, является ли символ написанным с большой буквы
+
+            return new string(arr);//возвращаем массив
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = "hello";
+            Console.WriteLine(message.ChangeFirstLetterCase());
+        }
+    }
+}
